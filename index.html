@@ -1,64 +1,70 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>[Your Name]¡¦s Pixel Portfolio</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>[Your Name] ¡V Pixel Portfolio</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <header>
-      <img src="avatar.png" alt="Pixel Avatar" class="avatar">
-      <h1>[Your Name]</h1>
-      <p class="tagline">AI Researcher & Pixel Mage</p>
-    </header>
+  <!-- TOP TABS -->
+  <nav class="tabs">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#publications">Publications</a>
+    <a href="#contact">Contact</a>
+  </nav>
 
-    <nav>
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#skills">Skills</a>
-      <a href="#contact">Contact</a>
-    </nav>
+  <div class="layout">
+    <!-- LEFT COLUMN -->
+    <aside class="sidebar">
+      <img src="avatar.png" alt="Your Pixel Avatar" class="avatar">
+      <h2>Skills & Interests</h2>
+      <ul class="pixel-list">
+        <li><span class="char-icon skill-ai"></span>AI & LoRA</li>
+        <li><span class="char-icon skill-contrast"></span>Contrastive Learning</li>
+        <li><span class="char-icon skill-ros"></span>ROS2 & Unity</li>
+        <li><span class="char-icon skill-pixel"></span>Pixel Art</li>
+        <li><span class="char-icon interest-basketball"></span>Basketball</li>
+        <li><span class="char-icon interest-travel"></span>Travel & Culture</li>
+      </ul>
+    </aside>
 
-    <main>
+    <!-- RIGHT COLUMN -->
+    <main class="content">
       <section id="about">
+        <h1>[Your Name]</h1>
+        <p class="tagline">M.S. AI @ NCKU MMCV Lab | Pixel-mage & Researcher</p>
         <h2>About Me</h2>
-        <p>
-          Hello! I¡¦m <strong>[Your Name]</strong>, a master¡¦s student in AI at NCKU MMCV Lab.  
-          I love building task-adaptive vision models (TRUMP-ViT), generating medical reports (PathGenIC),  
-          and crafting pixel art avatars. When not coding, I relax with basketball and weightlifting.
-        </p>
+        <p>Hello! I¡¦m <strong>[Your Name]</strong>, a master¡¦s student at NCKU MMCV Lab. I craft AI models by day and pixel art by night, always seeking the perfect blend of code and creativity.</p>
       </section>
 
-      <section id="projects">
-        <h2>Projects</h2>
+      <section id="experience">
+        <h2>Experience</h2>
         <ul>
-          <li><a href="https://github.com/username/TRUMP-ViT">TRUMP-ViT</a> ¡V Task-Adaptive Vision Transformer</li>
-          <li><a href="https://github.com/username/PathGenIC">PathGenIC</a> ¡V Histopathology Report Generator</li>
-          <li><a href="https://github.com/username/meme-bot">AI Meme Bot</a> ¡V Generates dank memes</li>
+          <li><strong>MMCV Lab Researcher</strong> (2024¡VPresent) ? TRUMP-ViT, TRUMP-Inv multi-task vision frameworks</li>
+          <li><strong>NXP Intern</strong> (2023) ¡V Embedded AI & edge-device prototyping</li>
+          <li><strong>Scratch Instructor</strong> (2021¡V22) ¡V Summer block-coding camps</li>
+          <li><strong>Cultural Guide</strong> ¡V Led Tainan exchange tours & Bangkok adventures</li>
         </ul>
       </section>
 
-      <section id="skills">
-        <h2>Skills</h2>
-        <div class="skill-grid">
-          <div class="skill">LoRA & Fine-Tuning</div>
-          <div class="skill">Contrastive Learning</div>
-          <div class="skill">ROS2 & Unity</div>
-          <div class="skill">Pixel Art & Design</div>
-        </div>
+      <section id="publications">
+        <h2>Publications & Projects</h2>
+        <ul>
+          <li><em>PathGenIC</em>: Histopathology report generation (MIDL ¡¦25 submission)</li>
+          <li><em>Contrastive Neural Collapse</em>: Task-specific bias in multi-task vision</li>
+          <li><em>MedViT Ensemble</em>: 12¡Ñ speed-up glomerulus detection/classification</li>
+          <li><a href="https://github.com/username/meme-bot">AI Meme Bot</a>: Meme generator ??</li>
+        </ul>
       </section>
 
       <section id="contact">
         <h2>Contact</h2>
-        <p>Email: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
-        <p>GitHub: <a href="https://github.com/username">github.com/username</a></p>
+        <p>Email: <a href="mailto:your.email@example.com">your.email@example.com</a><br>
+           GitHub: <a href="https://github.com/username">github.com/username</a></p>
       </section>
     </main>
-
-    <footer>
-      <p>&copy; 2025 [Your Name]. Made with pixel love.</p>
-    </footer>
   </div>
 </body>
 </html>
