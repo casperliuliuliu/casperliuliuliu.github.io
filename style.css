@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 :root {
-  --bg: #0b1a33;            /* very dark navy */
-  --sidebar-bg: #112244;    /* slightly lighter navy */
-  --content-bg: #122a44;    /* deep blue */
-  --accent: #33ff99;        /* neon green */
-  --text: #e0e0e0;          /* light gray */
-  --border: #224466;        /* muted blue border */
+  --bg: #0d0d1a;           /* almost-black indigo */
+  --sidebar-bg: #1a1a2e;   /* deep blue-black */
+  --content-bg: #16213e;   /* dark indigo */
+  --accent: #FFD700;       /* arcade yellow */
+  --text: #f0f0f0;         /* soft light gray */
+  --border: #273c75;       /* muted royal blue */
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -103,7 +103,7 @@ body {
 }
 .tagline {
   font-size: 0.9rem;
-  color: #aaa;
+  color: #aaaaaa;
   margin-bottom: 1rem;
 }
 .content h2 {
