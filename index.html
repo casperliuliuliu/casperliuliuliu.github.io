@@ -32,47 +32,33 @@
 
     <!-- RIGHT COLUMN -->
     <main class="content">
-      <section id="about">
-        <h1>[Your Name]</h1>
-        <p class="tagline">M.S. AI @ NCKU MMCV Lab | Pixel-mage & Researcher</p>
-        <h2>About Me</h2>
-        <p>Hello! I¡¦m <strong>[Your Name]</strong>, a master¡¦s student at NCKU MMCV Lab. I craft AI models by day and pixel art by night, always seeking the perfect blend of code and creativity.</p>
-      </section>
-
-      <section id="experience">
-        <h2>Experience</h2>
-        <ul>
-          <li><strong>MMCV Lab Researcher</strong> (2024-Present) ? TRUMP-ViT, TRUMP-Inv multi-task vision frameworks</li>
-          <li><strong>NXP Intern</strong> (2023) - Embedded AI & edge-device prototyping</li>
-          <li><strong>Scratch Instructor</strong> (2021-22) - Summer block-coding camps</li>
-          <li><strong>Cultural Guide</strong> - Led Tainan exchange tours & Bangkok adventures</li>
-          <li><strong>Cultural Guide</strong> - Led Tainan exchange tours & Bangkok adventures</li>
-          <li><strong>Cultural Guide</strong> - Led Tainan exchange tours & Bangkok adventures</li>
-          <li><strong>Cultural Guide</strong> - Led Tainan exchange tours & Bangkok adventures</li>
-          <li><strong>Cultural Guide</strong> - Led Tainan exchange tours & Bangkok adventures</li>
-          <li><strong>Cultural Guide</strong> - Led Tainan exchange tours & Bangkok adventures</li>
-          <li><strong>Cultural Guide</strong> - Led Tainan exchange tours & Bangkok adventures</li>
-          <li><strong>Cultural Guide</strong> - Led Tainan exchange tours & Bangkok adventures</li>
-          <li><strong>Cultural Guide</strong> - Led Tainan exchange tours & Bangkok adventures</li>
-        </ul>
-      </section>
-
-      <section id="publications">
-        <h2>Publications & Projects</h2>
-        <ul>
-          <li><em>PathGenIC</em>: Histopathology report generation (MIDL ¡¦25 submission)</li>
-          <li><em>Contrastive Neural Collapse</em>: Task-specific bias in multi-task vision</li>
-          <li><em>MedViT Ensemble</em>: 12¡Ñ speed-up glomerulus detection/classification</li>
-          <li><a href="https://github.com/username/meme-bot">AI Meme Bot</a>: Meme generator ??</li>
-        </ul>
-      </section>
-
-      <section id="contact">
-        <h2>Contact</h2>
-        <p>Email: <a href="mailto:your.email@example.com">your.email@example.com</a><br>
-           GitHub: <a href="https://github.com/username">github.com/username</a></p>
-      </section>
+      <div id="about"></div>
+      <div id="experience"></div>
+      <div id="publications"></div>
+      <div id="contact"></div>
     </main>
   </div>
+  <script>
+    ['about','experience','publications','contact']
+        .forEach(id=>{
+        fetch(`sections/${id}.html`)
+            .then(r=> r.text())
+            .then(html=> document.getElementById(id).innerHTML = html);
+        });
+    </script>
+  <!-- <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const h = new Date().getHours();
+        if (h >= 6 && h < 24) {
+        const root = document.documentElement.style;
+            root.setProperty('--bg', '#f5f5f5');         /* light gray */
+            root.setProperty('--sidebar-bg', '#ececec');  /* soft warm gray */
+            root.setProperty('--content-bg', '#fafafa');  /* crisp off-white */
+            root.setProperty('--accent', '#0000ff');     /* blue titles */
+            root.setProperty('--text', '#111111');       /* dark gray */
+            root.setProperty('--border', '#cccccc');     /* light gray border */
+        }
+    });
+    </script> -->
 </body>
 </html>
