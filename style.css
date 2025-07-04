@@ -1,10 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap');
-@media (max-width: 600px) {
-  .content {
-    padding-right: 1rem; /* restore normal padding on phones */
-  }
-}
+
 
 :root {
   --bg: #0d0d1a;           /* almost-black indigo */
@@ -146,23 +142,6 @@ body {
   /* font-weight: bold; */
 }
 
-/* .mission-scroll {
-  position: fixed;
-  top: 5rem;
-  right: 2rem;
-  width: 200px;                       
-  height: auto;
-  background: url('assets/scroll_bg.png') no-repeat center top;
-  background-size: 300px auto;          
-  border: none;                         
-  padding: 60px 20px 60px 20px;         
-  box-shadow: none;                     
-  font-family: 'Press Start 2P', cursive;
-  color: #1a1a1a;
-  line-height: 1.4;
-  z-index: 10;
-  overflow-wrap: break-word;  
-} */
 .mission-scroll {
   position: fixed;
   top: 5rem;         /* adjust to sit below your tabs/nav */
@@ -267,4 +246,62 @@ body {
 .exp-details li {
   margin-bottom: 0.3rem;
   line-height: 1.4;
+}
+@media (max-width: 600px) {
+  .layout {
+    flex-direction: column;  /* stack sidebar above content */
+  }
+  .sidebar {
+    width: 100%;
+    padding: 1rem;        /* uniform padding */
+  }
+
+  /* Stack avatar + skills in a row filling 100% */
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 1rem;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .avatar {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;      makes it circular
+    margin: 0 1rem 0 0;
+    flex-shrink: 0;
+  }
+  .pixel-list {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  .content {
+    width: 100%;             /* full-width panels */
+    padding: 1rem;           
+    border-right: none;
+    padding-right: 0;
+  }
+  .mission-scroll {
+    display: none;           /* hide on mobile */
+  }
+  .pub-item, 
+  .exp-item {
+    flex-direction: column;   /* stack image then details */
+    align-items: center;      /* center-align both */
+  }
+  .pub-image, 
+  .exp-thumb {
+    margin: 0 0 1rem 0;       /* space below the image */
+  }
+  .pub-image img,
+  .exp-thumb img {
+    width: 200px;              /* or any mobile-friendly size */
+    height: auto;
+  }
+  
 }
