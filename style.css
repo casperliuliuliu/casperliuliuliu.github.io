@@ -51,10 +51,10 @@ body {
 
 /* LEFT COLUMN */
 .sidebar {
-  width: 240px;
+  width: 280px;
   background: var(--sidebar-bg);
   border-right: 1px solid var(--border);
-  padding: 1rem;
+  padding: 1rem 1rem 1rem 4rem;
   overflow-y: auto;
 }
 
@@ -102,7 +102,7 @@ body {
   padding: 1.5rem;
   overflow-y: auto;
   position: relative;
-  padding-right: 340px;   /* width of scroll (240px) + 40px gap */
+  padding-right: 350px;   /* width of scroll (240px) + 40px gap */
 }
 .content section { margin-bottom: 2rem; }
 .content h1 {
@@ -124,7 +124,7 @@ body {
 }
 .content ul { padding-left: 1.2rem; }
 .content li {
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.5rem;
   line-height: 1.5;
 }
 .content a {
@@ -133,6 +133,13 @@ body {
 }
 .content a:hover {
   text-decoration: underline;
+}
+.content p {
+  margin-bottom: 1.2rem;
+}
+.keyword {
+  color: #33cc33; /* green */
+  font-weight: bold;
 }
 
 /* .mission-scroll {
