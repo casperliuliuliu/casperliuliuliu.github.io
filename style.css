@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap');
-
+@media (max-width: 600px) {
+  .content {
+    padding-right: 1rem; /* restore normal padding on phones */
+  }
+}
 
 :root {
   --bg: #0d0d1a;           /* almost-black indigo */
@@ -102,7 +106,7 @@ body {
   padding: 1.5rem;
   overflow-y: auto;
   position: relative;
-  padding-right: 350px;   /* width of scroll (240px) + 40px gap */
+  padding-right: 280px;   /* width of scroll (240px) + 40px gap */
 }
 .content section { margin-bottom: 2rem; }
 .content h1 {
@@ -163,7 +167,7 @@ body {
   position: fixed;
   top: 5rem;         /* adjust to sit below your tabs/nav */
   right: 2rem;       /* distance from the viewport¡¦s right edge */
-  width: 300px;
+  width: 240px;
   background: url('assets/scroll.png') no-repeat center top;
   background-size: cover;
   padding: 3rem 1rem 1rem;
@@ -189,4 +193,40 @@ body {
 
 .main-sections {
   margin-right: 0;
+}
+.publications-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pub-item {
+  display: flex;
+  align-items: center;     /* centers image and text vertically */
+  margin-bottom: 2rem;
+}
+
+.pub-image img {
+  width: 200px;
+  height: auto;
+  object-fit: cover;
+  border: 2px solid var(--accent);
+  margin-right: 1rem;
+}
+
+.pub-details h3 {
+  margin: 0 0 0.5rem;
+}
+
+.pub-details p {
+  margin: 0.3rem 0;
+  line-height: 1.4;
+}
+
+.pub-details ul {
+  margin: 0.3rem 0 0.3rem 1.2rem;
+}
+
+.pub-details ul li {
+  margin-bottom: 0.3rem;
 }
