@@ -143,7 +143,7 @@ body {
 }
 .keyword {
   color: #33cc33; /* green */
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 
 /* .mission-scroll {
