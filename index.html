@@ -14,6 +14,8 @@
     <a href="#publications">Publications</a>
     <a href="#projects">Projects</a>
     <a href="#experience">Experience</a>
+    <a href="#award">Award</a>
+
     <!-- <a href="#publications">Other Interests</a> -->
     <a href="#contact">Contact</a>
   </nav>
@@ -39,6 +41,7 @@
       <div id="publications"></div>
       <div id="projects"></div>
       <div id="experience"></div>
+      <div id="award"></div>
       <div id="contact"></div>
         <div class="mission-scroll">
     <h2>MISSION</h2>
@@ -59,7 +62,7 @@
     </main>
   </div>
   <script>
-    ['about','experience','publications', 'projects','contact']
+    ['about','experience','publications', 'projects','contact', 'award']
         .forEach(id=>{
         fetch(`sections/${id}.html`)
             .then(r=> r.text())

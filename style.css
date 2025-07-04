@@ -230,3 +230,41 @@ body {
 .pub-details ul li {
   margin-bottom: 0.3rem;
 }
+
+/* Experience list styling */
+.experience-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.exp-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.exp-thumb img {
+  width: 60px;        /* smaller thumbnail */
+  height: auto;
+  align-items: center;
+  object-fit: cover;
+  border: 2px solid var(--accent);
+  border-radius: 4px;
+  margin-right: 1rem;
+}
+
+.exp-details p {
+  margin: 0 0 0.5rem;
+  font-weight: bold;
+}
+
+.exp-details ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.exp-details li {
+  margin-bottom: 0.3rem;
+  line-height: 1.4;
+}
