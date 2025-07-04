@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap');
+
 
 :root {
   --bg: #0d0d1a;           /* almost-black indigo */
@@ -11,7 +13,9 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-  font-family: sans-serif;
+  /* font-family: sans-serif; */
+  font-family: 'Noto Sans SC', sans-serif;
+
   background: var(--bg);
   color: var(--text);
   height: 100vh;
@@ -53,15 +57,18 @@ body {
   padding: 1rem;
   overflow-y: auto;
 }
+
 .avatar {
-  display: block;
-  width: 100%;
-  max-width: 200px;
-  margin: 0 auto 1rem;
-  image-rendering: pixelated;
+  width: 200px;            /* choose your square size */
+  height: 200px;
+  border-radius: 15%;      /* makes it circular */
+  object-fit: cover;       /* scale & crop to fill the box */
+  object-position: center; /* center the crop */
   border: 3px solid var(--accent);
-  border-radius: 8px;
+  /* border-radius: 8px; */
+  image-rendering: pixelated;
 }
+
 .sidebar h2 {
   font-family: 'Press Start 2P', cursive;
   font-size: 0.9rem;
@@ -94,6 +101,8 @@ body {
   background: var(--content-bg);
   padding: 1.5rem;
   overflow-y: auto;
+  position: relative;
+  padding-right: 340px;   /* width of scroll (240px) + 40px gap */
 }
 .content section { margin-bottom: 2rem; }
 .content h1 {
@@ -124,4 +133,53 @@ body {
 }
 .content a:hover {
   text-decoration: underline;
+}
+
+/* .mission-scroll {
+  position: fixed;
+  top: 5rem;
+  right: 2rem;
+  width: 200px;                       
+  height: auto;
+  background: url('assets/scroll_bg.png') no-repeat center top;
+  background-size: 300px auto;          
+  border: none;                         
+  padding: 60px 20px 60px 20px;         
+  box-shadow: none;                     
+  font-family: 'Press Start 2P', cursive;
+  color: #1a1a1a;
+  line-height: 1.4;
+  z-index: 10;
+  overflow-wrap: break-word;  
+} */
+.mission-scroll {
+  position: fixed;
+  top: 5rem;         /* adjust to sit below your tabs/nav */
+  right: 2rem;       /* distance from the viewport¡¦s right edge */
+  width: 300px;
+  background: url('assets/scroll.png') no-repeat center top;
+  background-size: cover;
+  padding: 3rem 1rem 1rem;
+  box-shadow: 0 0 8px rgba(0,0,0,0.5);
+  z-index: 10;       /* keep it above other content */
+}
+
+/* preserve your existing mission-list styling */
+.mission-list {
+  list-style: none;
+  padding: 0;
+}
+.mission-list li {
+  margin: 0.6rem 0;
+}
+.mission-scroll h2 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1rem;
+  color: var(--accent);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.main-sections {
+  margin-right: 0;
 }
