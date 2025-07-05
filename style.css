@@ -65,10 +65,20 @@ body {
   object-fit: cover;       /* scale & crop to fill the box */
   object-position: center; /* center the crop */
   border: 3px solid var(--accent);
+  margin-bottom: 1rem;
   /* border-radius: 8px; */
   image-rendering: pixelated;
 }
-
+.avatar-name {
+  font-family: 'Press Start 2P', cursive !important;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #33cc33;
+  text-align: center;
+  margin: 0.5rem 0 1rem;
+  line-height: 1.2;
+}
 .sidebar h2 {
   font-family: 'Press Start 2P', cursive;
   font-size: 0.9rem;
@@ -182,7 +192,10 @@ body {
 .pub-item {
   display: flex;
   align-items: center;     /* centers image and text vertically */
+  margin-top: 2rem;
   margin-bottom: 2rem;
+  padding-bottom: 1rem;               /* space before divider */
+  border-bottom: 1px solid var(--border);
 }
 
 .pub-image img {
@@ -220,7 +233,10 @@ body {
 .exp-item {
   display: flex;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom:1rem;
+  padding-bottom: 1rem;               /* space before divider */
+  border-bottom: 1px solid var(--border);
 }
 
 .exp-thumb img {
@@ -272,7 +288,10 @@ body {
     border-radius: 50%;     
     margin: 0 1rem 0 0;
     flex-shrink: 0;
+    margin-bottom: 1 rem;
+    
   }
+
   .pixel-list {
     display: block;
     width: 100%;
