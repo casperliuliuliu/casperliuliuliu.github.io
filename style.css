@@ -269,7 +269,7 @@ body {
   .avatar {
     width: 200px;
     height: 200px;
-    border-radius: 50%;      makes it circular
+    border-radius: 50%;     
     margin: 0 1rem 0 0;
     flex-shrink: 0;
   }
@@ -303,5 +303,17 @@ body {
     width: 200px;              /* or any mobile-friendly size */
     height: auto;
   }
-  
+  body {
+    height: auto;            /* remove the 100vh lock */
+    overflow-y: auto;
+  }
+
+  /* Disable internal scrolling on those panels */
+  .content,
+  .sidebar {
+    overflow-y: visible;     /* let them grow, not scroll internally */
+  }
+  .tabs {
+    display: none !important;
+  }
 }
