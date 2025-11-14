@@ -76,3 +76,25 @@ $(document).ready(function() {
     bulmaSlider.attach();
 
 })
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Initialize the carousel
+  bulmaCarousel.attach('#results-carousel', {
+    slidesToScroll: 1,
+    slidesToShow: 1,
+    pagination: true,
+    loop: true,
+    autoplay: false
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Initialize the depth estimation carousel
+  bulmaCarousel.attach('#depth-results-carousel', {
+    slidesToScroll: 1,
+    slidesToShow: 1,
+    pagination: true,
+    loop: true,
+    autoplay: false
+  });
+});
