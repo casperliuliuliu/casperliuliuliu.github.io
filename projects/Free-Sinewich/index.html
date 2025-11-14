@@ -1,10 +1,218 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Hello World</title>
-  </head>
-  <body>
-    <h1>Hello, World!</h1>
-  </body>x
+<head>
+  <meta charset="utf-8">
+  <title>Free Sinewich</title>
+
+  <!-- Correct favicon -->
+  <link rel="icon" href="./assets/sinewich.png" type="image/png">
+
+  <!-- Meta -->
+  <meta name="description" content="Free Sinewich: Frequency Switching Mechanism for Parameter-Efficient Multi-Task Learning">
+  <meta name="keywords" content="Free Sinewich, SineWICH, MTL, PEFT, LoRA">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+  <!-- Your page style -->
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <!-- JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+
+<body>
+
+<!-- NAV BAR -->
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </a>
+  </div>
+
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://casperliuliuliu.github.io">
+        <span class="icon"><i class="fas fa-home"></i></span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- HEADER -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+
+          <img src="./assets/sinewich.png" style="width:120px">
+
+          <h1 class="title is-1 publication-title">Free Sinewich</h1>
+          <h2 class="subtitle is-3" style="margin-top:-6px; color:#111; font-weight:600;">
+            Frequency Switching Mechanism for Parameter-Efficient Multi-Task Learning
+          </h2>
+          
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Shih-Wen Liu (Casper)<sup>1</sup></span>,
+            <span class="author-block">Yen-Chang Chen<sup>1</sup></span>,
+            <span class="author-block">Wei-Ta Chu<sup>1</sup></span>,
+            <span class="author-block">Fu-En Yang<sup>2</sup></span>,
+            <span class="author-block">Yu-Chiang Frank Wang<sup>2</sup></span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>National Cheng Kung University, Taiwan</span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>2</sup>NVIDIA Research, Taiwan</span>
+          </div>
+          <h2 class="subtitle is-3" style="margin-top:-6px; color:#111; font-weight:600;">
+            <span style="font-size:0.7em; color:#777;">(Under Construction)</span></h1>
+          </h2>
+
+          <!-- BUTTONS -->
+          <div class="column has-text-centered">
+            <div class="publication-links">
+
+              <span class="link-block">
+                <a href="https://github.com/casperliuliuliu"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                  <span>Paper (soon)</span>
+                </a>
+              </span>
+
+              <span class="link-block">
+                <a href="https://github.com/casperliuliuliu"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code (soon)</span>
+                </a>
+              </span>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- TEASER -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="./assets/sinewich_teaser.png" style="width:100%">
+      <h2 class="subtitle has-text-centered" style="margin-top:20px;">
+        A lightweight, efficient, frequency-modulated PEFT module.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<!-- ABSTRACT -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <!-- <p>
+            Free Sinewich introduces a frequency-modulated adaptive weight broadcasting mechanism
+            for parameter-efficient multi-task learning. Instead of storing task-specific adapters,
+            we modulate a single shared base matrix with continuous sine-based frequency signals,
+            enabling dynamic task adaptation with effectively zero extra parameters.
+          </p>
+
+          <p>
+            The method is lightweight, fast, and achieves strong performance across vision tasks
+            such as semantic segmentation, depth estimation, normals, and edges, outperforming
+            prior PEFT methods like LoRA, MTLoRA, and TADFormer under identical training budgets.
+          </p> -->
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- VIDEO OR FIGURE -->
+<section class="section">
+  <div class="container is-max-desktop has-text-centered">
+    <h2 class="title is-3">Method Overview</h2>
+    <img src="./assets/sinewich_method.png" style="max-width:100%;border-radius:10px;">
+  </div>
+</section>
+
+
+<!-- BIBTEX -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+<pre><code>@article{liu2025freesinewich,
+  author    = {Shih-Wen Liu, Yen-Chang Chen, Wei-Ta Chu, Fu-En Yang, Yu-Chiang Frank Wang},
+  title     = {Free Sinewich: Frequency-Modulated Adaptive Weight Broadcasting for Multi-Task Learning},
+  year      = {2025},
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This means you are free to borrow the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+            we just ask that you link back to this page in the footer.
+            Please remember to remove the analytics code included in the header of the website which
+            you do not want on your website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
 </html>
