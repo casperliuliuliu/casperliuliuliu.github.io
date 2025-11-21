@@ -22,6 +22,9 @@ body {
   display: flex;
   flex-direction: column;
 }
+.center-text {
+  text-align: center;
+}
 
 /* TOP TABS */
 .tabs {
@@ -168,7 +171,10 @@ body {
 .mission-list {
   list-style: none;
   padding: 0;
+  padding-left: 0;
+  margin-left: 0;
 }
+
 .mission-list li {
   margin: 0.6rem 0;
 }
@@ -336,3 +342,4 @@ body {
     display: none !important;
   }
 }
+
