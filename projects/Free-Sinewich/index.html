@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>Free Sinewich</title>
@@ -8,21 +9,20 @@
   <link rel="icon" href="./assets/sinewich.png" type="image/png">
 
   <!-- Meta -->
-  <meta name="description" content="Free Sinewich: Frequency Switching Mechanism for Parameter-Efficient Multi-Task Learning">
+  <meta name="description"
+    content="Free Sinewich: Frequency Switching Mechanism for Parameter-Efficient Multi-Task Learning">
   <meta name="keywords" content="Free Sinewich, SineWICH, MTL, PEFT, LoRA">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-        rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
 
   <!-- CSS -->
   <link rel="stylesheet" href="./static/css/bulma.min.css">
   <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
   <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
   <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
 
   <!-- Your page style -->
   <link rel="stylesheet" href="./static/css/index.css">
@@ -37,183 +37,231 @@
 
 <body>
 
-<!-- NAV BAR -->
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </a>
-  </div>
-
-  <div class="navbar-menu">
-    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-      <a class="navbar-item" href="https://casperliuliuliu.github.io">
-        <span class="icon"><i class="fas fa-home"></i></span>
+  <!-- NAV BAR -->
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span></span><span></span><span></span>
       </a>
     </div>
-  </div>
-</nav>
 
-
-<!-- HEADER -->
-<section class="hero">
-  <div class="hero-body">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered">
-        <div class="column has-text-centered">
-
-          <img src="./assets/sinewich.png" style="width:120px">
-
-          <h1 class="title is-1 publication-title">Free Sinewich</h1>
-          <h2 class="subtitle is-3" style="margin-top:-6px; color:#111; font-weight:600;">
-            Frequency Switching Mechanism for Parameter-Efficient Multi-Task Learning
-          </h2>
-          
-
-          <div class="is-size-5 publication-authors">
-            <span class="author-block">Shih-Wen Liu (Casper)<sup>1</sup></span>,
-            <span class="author-block">Yen-Chang Chen<sup>1</sup></span>,
-            <span class="author-block">Wei-Ta Chu<sup>1</sup></span>,
-            <span class="author-block">Fu-En Yang<sup>2</sup></span>,
-            <span class="author-block">Yu-Chiang Frank Wang<sup>2</sup></span>
-          </div>
-
-          <div class="is-size-5 publication-authors">
-            <span class="author-block"><sup>1</sup>National Cheng Kung University, Taiwan</span>
-          </div>
-
-          <div class="is-size-5 publication-authors">
-            <span class="author-block"><sup>2</sup>NVIDIA Research, Taiwan</span>
-          </div>
-          <h2 class="subtitle is-3" style="margin-top:-6px; color:#111; font-weight:600;">
-            <span style="font-size:0.7em; color:#777;">(Under Construction)</span></h1>
-          </h2>
-
-          <!-- BUTTONS -->
-          <div class="column has-text-centered">
-            <div class="publication-links">
-
-              <span class="link-block">
-                <a href="https://github.com/casperliuliuliu"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
-                  <span>Paper (soon)</span>
-                </a>
-              </span>
-
-              <span class="link-block">
-                <a href="https://github.com/casperliuliuliu"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon"><i class="fab fa-github"></i></span>
-                  <span>Code (soon)</span>
-                </a>
-              </span>
-
-            </div>
-          </div>
-
-        </div>
+    <div class="navbar-menu">
+      <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+        <a class="navbar-item" href="https://casperliuliuliu.github.io">
+          <span class="icon"><i class="fas fa-home"></i></span>
+        </a>
       </div>
     </div>
-  </div>
-</section>
+  </nav>
 
 
-<!-- TEASER -->
-<section class="hero teaser">
-  <div class="container is-max-desktop">
+  <!-- HEADER -->
+  <section class="hero">
     <div class="hero-body">
-      <img src="./assets/comparison.png" style="width:100%">
-      <h2 class="subtitle has-text-centered" style="margin-top:20px;">
-      </h2>
-    </div>
-  </div>
-</section>
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+
+            <img src="./assets/sinewich.png" style="width:120px">
+
+            <h1 class="title is-1 publication-title">Free Sinewich</h1>
+            <h2 class="subtitle is-3" style="margin-top:-6px; color:#111; font-weight:600;">
+              Frequency Switching Mechanism for Parameter-Efficient Multi-Task Learning
+            </h2>
 
 
-<!-- ABSTRACT -->
-<section class="section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">Shih-Wen Liu (Casper)<sup>1</sup></span>,
+              <span class="author-block">Yen-Chang Chen<sup>1</sup></span>,
+              <span class="author-block">Wei-Ta Chu<sup>1</sup></span>,
+              <span class="author-block">Fu-En Yang<sup>2</sup></span>,
+              <span class="author-block">Yu-Chiang Frank Wang<sup>2</sup></span>
+            </div>
 
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <p>
-          Multi-task learning (MTL) aims to equip a single model with the ability to solve multiple tasks efficiently; 
-          however, current parameter-efficient fine-tuning (PEFT) methods remain largely limited to single-task adaptation. 
-          We introduce <strong>Free Sinewich</strong>, a parameter-efficient multi-task learning framework that achieves efficient weight reuse through frequency switching. 
-          A lightweight Clock Net first determines task-dependent frequency with negligible overhead (<strong>Free</strong>). 
-          These frequencies modulate a <strong>Sine-AWB (Sinewich)</strong> layer, where low-rank factors and convolutional priors are combined into a single kernel and transformed via an elementwise sinusoidal transformation to produce task-specialized weights. 
-          Theoretically, sine modulation enhances the rank of low-rank adapters, while frequency separation decorrelates the weights of different tasks. 
-          On dense prediction benchmarks, Free Sinewich achieves state-of-the-art performance-efficiency trade-offs (e.g., up to +5.39\% improvement over single-task fine-tuning with only 6.53M trainable parameters), 
-          offering a compact and scalable paradigm based on frequency-based parameter sharing. Our code is publicly available. 
-          </p>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup>National Cheng Kung University, Taiwan</span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>2</sup>NVIDIA Research, Taiwan</span>
+            </div>
+            <h2 class="subtitle is-3" style="margin-top:-6px; color:#111; font-weight:600;">
+              <span style="font-size:0.7em; color:#777;">(Under Construction)</span></h1>
+            </h2>
+
+            <!-- BUTTONS -->
+            <div class="column has-text-centered">
+              <div class="publication-links">
+
+                <span class="link-block">
+                  <a href="https://github.com/casperliuliuliu"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                    <span>Paper (soon)</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://github.com/casperliuliuliu"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fab fa-github"></i></span>
+                    <span>Code (soon)</span>
+                  </a>
+                </span>
+
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
 
-<!-- VIDEO OR FIGURE -->
-<section class="section">
-  <div class="container is-max-desktop has-text-centered">
+  <!-- TEASER -->
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <img src="./assets/comparison.png" style="width:100%">
+        <h2 class="subtitle has-text-centered" style="margin-top:20px;">
+        </h2>
+      </div>
+    </div>
+  </section>
 
-    <h2 class="title is-3">Method Overview</h2>
 
-    <div class="columns is-centered" style="margin-top:20px;">
-        
+  <!-- ABSTRACT -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              Multi-task learning (MTL) aims to equip a single model with the ability to solve multiple tasks
+              efficiently;
+              however, current parameter-efficient fine-tuning (PEFT) methods remain largely limited to single-task
+              adaptation.
+              We introduce <strong>Free Sinewich</strong>, a parameter-efficient multi-task learning framework that
+              achieves efficient weight reuse through frequency switching.
+              A lightweight Clock Net first determines task-dependent frequency with negligible overhead
+              (<strong>Free</strong>).
+              These frequencies modulate a <strong>Sine-AWB (Sinewich)</strong> layer, where low-rank factors and
+              convolutional priors are combined into a single kernel and transformed via an elementwise sinusoidal
+              transformation to produce task-specialized weights.
+              Theoretically, sine modulation enhances the rank of low-rank adapters, while frequency separation
+              decorrelates the weights of different tasks.
+              On dense prediction benchmarks, Free Sinewich achieves state-of-the-art performance-efficiency trade-offs
+              (e.g., up to +5.39\% improvement over single-task fine-tuning with only 6.53M trainable parameters),
+              offering a compact and scalable paradigm based on frequency-based parameter sharing. Our code is publicly
+              available.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- VIDEO OR FIGURE -->
+  <section class="section">
+    <div class="container is-max-desktop has-text-centered">
+
+      <h2 class="title is-3">Method Overview</h2>
+
+      <div class="columns is-centered" style="margin-top:20px;">
+
         <!-- <img src="./assets/overall_structure.png"
              style="width:100%; border-radius:10px;">
         <p style="margin-top:8px;"><strong>A</strong></p>
         <img src="./assets/task-agnostic.png"
              style="width:100%; border-radius:10px;">
         <p style="margin-top:8px;"><strong>B</strong></p>  -->
-        <img src="./assets/task-specific.png"
-             style="width:100%; border-radius:10px;">
+        <img src="./assets/task-specific.png" style="width:100%; border-radius:10px;">
         <p style="margin-top:8px;"></p>
 
+      </div>
+
     </div>
-
-  </div>
-</section>
+  </section>
 
 
+  <!-- Interactive Demo -->
+  <section class="section">
+    <div class="container is-max-desktop has-text-centered">
+      <h2 class="title is-3">Interactive Demo</h2>
+      <div class="content has-text-justified">
+        <p>
+          Adjust the frequency slider to match the target frequency. When the correct frequency is found, the secret
+          image will be revealed.
+        </p>
+      </div>
 
+      <div style="margin-bottom: 20px;">
+        <canvas id="sine-canvas" width="800" height="300"
+          style="border:1px solid #ddd; border-radius: 5px; width: 100%;"></canvas>
+      </div>
 
-<section class="hero is-light is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div id="semseg-carousel" class="carousel results-carousel"></div>
+      <div style="margin-bottom: 20px;">
+        <h3 class="title is-4">Matrix Visualization (512x512)</h3>
+        <p style="margin-bottom: 15px;">Visualizing element-wise sine transform: <code>sin(freq * learned_matrix)</code>
+        </p>
+        <canvas id="matrix-canvas" width="512" height="512" style="border:1px solid #ddd; border-radius: 5px;"></canvas>
+      </div>
+
+      <div class="columns is-centered">
+        <div class="column is-half">
+          <input id="freq-slider" class="slider is-fullwidth" step="1" min="1" max="100" value="10" type="range">
+          <p>Frequency: <span id="freq-val">10</span></p>
+        </div>
+      </div>
+
+      <div id="secret-image-container"
+        style="margin-top: 20px; opacity: 0; transition: opacity 0.5s; pointer-events: none;">
+        <h3 class="title is-4">Correct Frequency!</h3>
+        <img src="./assets/sinewich.png" style="width: 200px;">
+      </div>
+
     </div>
-  </div>
-</section>
+  </section>
 
-<script>
-const base = "./assets/qualitative/semseg/";
 
-const semseg_files = [
-  "2008_000026",
-  "2008_000806",
-  "2008_001264",
-  "2008_002870",
-];
 
-function chunk(arr, size) {
-  const out = [];
-  for (let i = 0; i < arr.length; i += size) {
-    out.push(arr.slice(i, i + size));
-  }
-  return out;
-}
 
-function buildSemsegSlides() {
-  let slides = "";
-  const grouped = chunk(semseg_files, 2);
+  <section class="hero is-light is-small">
+    <div class="hero-body">
+      <div class="container">
+        <div id="semseg-carousel" class="carousel results-carousel"></div>
+      </div>
+    </div>
+  </section>
 
-  grouped.forEach(rowIDs => {
-    slides += `
+  <script>
+    const base = "./assets/qualitative/semseg/";
+
+    const semseg_files = [
+      "2008_000026",
+      "2008_000806",
+      "2008_001264",
+      "2008_002870",
+    ];
+
+    function chunk(arr, size) {
+      const out = [];
+      for (let i = 0; i < arr.length; i += size) {
+        out.push(arr.slice(i, i + size));
+      }
+      return out;
+    }
+
+    function buildSemsegSlides() {
+      let slides = "";
+      const grouped = chunk(semseg_files, 2);
+
+      grouped.forEach(rowIDs => {
+        slides += `
       <div class="item" style="padding:20px;">
 
         <!-- FIXED HEADER (now visible!) -->
@@ -259,74 +307,74 @@ function buildSemsegSlides() {
 
       </div>
     `;
-  });
+      });
 
-  document.querySelector("#semseg-carousel").innerHTML = slides;
-}
+      document.querySelector("#semseg-carousel").innerHTML = slides;
+    }
 
-document.addEventListener('DOMContentLoaded', () => {
-  buildSemsegSlides();
+    document.addEventListener('DOMContentLoaded', () => {
+      buildSemsegSlides();
 
-  bulmaCarousel.attach('#semseg-carousel', {
-    slidesToScroll: 1,
-    slidesToShow: 1,
-    loop: true,
-    pagination: true,
-    autoplay: false
-  });
-});
-</script>
-
-
+      bulmaCarousel.attach('#semseg-carousel', {
+        slidesToScroll: 1,
+        slidesToShow: 1,
+        loop: true,
+        pagination: true,
+        autoplay: false
+      });
+    });
+  </script>
 
 
 
 
 
-<!-- BIBTEX -->
-<section class="section" id="BibTeX">
-  <div class="container is-max-desktop content">
-    <h2 class="title">BibTeX</h2>
-<pre><code>@article{liu2025freesinewich,
+
+
+  <!-- BIBTEX -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@article{liu2025freesinewich,
   author    = {Shih-Wen Liu, Yen-Chang Chen, Wei-Ta Chu, Fu-En Yang, Yu-Chiang Frank Wang},
   title     = {Free Sinewich: Frequency-Modulated Adaptive Weight Broadcasting for Multi-Task Learning},
   year      = {2025},
 }</code></pre>
-  </div>
-</section>
-
-
-<footer class="footer">
-  <div class="container">
-    <div class="content has-text-centered">
-      <a class="icon-link"
-         href="./static/videos/nerfies_paper.pdf">
-        <i class="fas fa-file-pdf"></i>
-      </a>
-      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
-        <i class="fab fa-github"></i>
-      </a>
     </div>
-    <div class="columns is-centered">
-      <div class="column is-8">
-        <div class="content">
-          <p>
-            This website is licensed under a <a rel="license"
-                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
-            Commons Attribution-ShareAlike 4.0 International License</a>.
-          </p>
-          <p>
-            This means you are free to borrow the <a
-              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
-            we just ask that you link back to this page in the footer.
-            Please remember to remove the analytics code included in the header of the website which
-            you do not want on your website.
-          </p>
+  </section>
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <a class="icon-link" href="./static/videos/nerfies_paper.pdf">
+          <i class="fas fa-file-pdf"></i>
+        </a>
+        <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+          <i class="fab fa-github"></i>
+        </a>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p>
+              This website is licensed under a <a rel="license"
+                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+                Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+            <p>
+              This means you are free to borrow the <a href="https://github.com/nerfies/nerfies.github.io">source
+                code</a> of this website,
+              we just ask that you link back to this page in the footer.
+              Please remember to remove the analytics code included in the header of the website which
+              you do not want on your website.
+            </p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</footer>
+  </footer>
 
 </body>
+
 </html>
