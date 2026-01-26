@@ -214,15 +214,20 @@
       <div class="columns is-centered">
         <div class="column is-half">
           <input id="freq-slider" class="slider is-fullwidth" step="1" min="1" max="100" value="10" type="range">
-          <p>Frequency: <span id="freq-val">10</span></p>
+          <p>Frequency (<span style="font-family: serif;">&omega;<sub>t</sub></span>) = <span id="freq-val">10</span>
+          </p>
+          <label class="checkbox" style="margin-top: 10px;">
+            <input type="checkbox" id="blur-toggle" checked>
+            Apply Gaussian Blur
+          </label>
         </div>
       </div>
 
-      <div id="secret-image-container"
+      <!-- <div id="secret-image-container"
         style="margin-top: 20px; opacity: 0; transition: opacity 0.5s; pointer-events: none;">
         <h3 class="title is-4">Correct Frequency!</h3>
         <img src="./assets/sinewich.png" style="width: 200px;">
-      </div>
+      </div> -->
 
     </div>
   </section>
