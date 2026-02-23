@@ -15,9 +15,6 @@
     <a href="#projects">Projects</a>
     <a href="#experience">Experience</a>
     <a href="#award">Award</a>
-
-    <!-- <a href="#publications">Other Interests</a> -->
-    <a href="#contact">Contact</a>
   </nav>
 
   <div class="layout">
@@ -27,71 +24,48 @@
       <p class="avatar-name">Liu Shih-Wen, CASPER</p>
       <h2>Skills & Interests</h2>
       <ul class="pixel-list">
-        <li><span class="char-icon skill-ai"></span>AI & LoRA</li>
-        <li><span class="char-icon skill-contrast"></span>Contrastive Learning</li>
+        <li><span class="char-icon skill-ai"></span>LoRA & Efficient Tuning</li>
+        <li><span class="char-icon skill-contrast"></span>Multi Agent Learning</li>
         <li><span class="char-icon skill-ros"></span>Weight Lifting</li>
         <li><span class="char-icon skill-pixel"></span>Book Reading</li>
+        <li><span class="char-icon skill-pixel"></span>Bouldering</li>
+        
       </ul>
+
     </aside>
 
-    <!-- RIGHT COLUMN -->
+   
     <main class="content">
-      <div id="about"></div>
-      <div id="publications"></div>
-      <div id="projects"></div>
-      <div id="experience"></div>
-      <div id="award"></div>
-      <div id="contact"></div>
-        <div class="mission-scroll">
-            <h2>MISSION</h2>
-            <h3>Short-Term</h3>
-            <ul class="mission-list">
-              <li>Submit a strong CoRL/ECCV paper</li>
-              <li>Improve overall physical fitness</li>
-              <li>Research collaboration with Toronto</li>
-            </ul>
-
-            <h3>Mid-Term</h3>
-            <ul class="mission-list">
-              <li>Research how AI can accelerate human development 1M x faster</li>
-            </ul>
-
-            <h3>Long-Term</h3>
-            <ul class="mission-list">
-              <li>Meet alien life and explore the universe</li>
-            </ul>
-        </div>
-
-  <!-- <div class="main-sections">
-    <div id="about"></div>
-    <div id="publications"></div>
-    <div id="experience"></div>
-    <div id="contact"></div>
-  </div> -->
-      <!-- <p>&#x4F60;&#x597D;&#xFF01; I’m [Your Name].</p> -->
+      <div id="section"></div>
+             <section id="contact">
+          <h2>Contact</h2>
+          <p>Email: <a href="mailto:casperliu1118@gmail.com">casperliu1118@gmail.com</a><br>
+              GitHub: <a href="https://github.com/casperliuliuliu">casperliuliuliu</a></p>
+      </section>
     </main>
   </div>
   <script>
-    ['about','experience','publications', 'projects','contact', 'award']
-        .forEach(id=>{
-        fetch(`sections/${id}.html`)
-            .then(r=> r.text())
-            .then(html=> document.getElementById(id).innerHTML = html);
-        });
-    </script>
-  <!-- <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const h = new Date().getHours();
-        if (h >= 6 && h < 24) {
-        const root = document.documentElement.style;
-            root.setProperty('--bg', '#f5f5f5');         /* light gray */
-            root.setProperty('--sidebar-bg', '#ececec');  /* soft warm gray */
-            root.setProperty('--content-bg', '#fafafa');  /* crisp off-white */
-            root.setProperty('--accent', '#0000ff');     /* blue titles */
-            root.setProperty('--text', '#111111');       /* dark gray */
-            root.setProperty('--border', '#cccccc');     /* light gray border */
-        }
-    });
-    </script> -->
+    const allowed = new Set(['about','publications','projects','experience','award','contact']);
+
+    function load(id){
+      if(!allowed.has(id)) id = 'about';
+      fetch(`sections/${id}.html`)
+        .then(r => r.text())
+        .then(html => document.getElementById('section').innerHTML = html);
+
+      // optional: highlight active tab
+      document.querySelectorAll('.tabs a').forEach(a=>{
+        a.classList.toggle('active', a.getAttribute('href') === `#${id}`);
+      });
+    }
+
+    function current(){
+      return location.hash.replace('#','') || 'about';
+    }
+
+    window.addEventListener('hashchange', () => load(current()));
+    load(current());
+  </script>
+  
 </body>
 </html>

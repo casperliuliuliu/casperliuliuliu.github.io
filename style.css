@@ -13,6 +13,7 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
+  zoom: 150%;
   /* font-family: sans-serif; */
   font-family: 'Noto Sans SC', sans-serif;
 
@@ -96,12 +97,12 @@ body {
   font-size: 0.9rem;
 }
 .char-icon {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   margin-right: 0.5rem;
   image-rendering: pixelated;
 }
-.skill-ai { background: url('icons/ai.png') no-repeat center; }
+.skill-ai { background: url('assets/icons/ai.png') no-repeat center; }
 .skill-contrast { background: url('icons/contrast.png') no-repeat center; }
 .skill-ros { background: url('icons/ros.png') no-repeat center; }
 .skill-pixel { background: url('icons/pixel.png') no-repeat center; }
@@ -338,8 +339,7 @@ body {
   .sidebar {
     overflow-y: visible;     /* let them grow, not scroll internally */
   }
-  .tabs {
-    display: none !important;
-  }
+
 }
+
 
