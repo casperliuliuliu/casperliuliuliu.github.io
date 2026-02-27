@@ -1,14 +1,46 @@
 {
-  "start": "2026-03-02",
-  "goals": ["100k NTD", "3 papers", "Japanese N2"],
+  "start": "2026-02-23",
+  "goals": ["3 papers", "100k NTD", "Japanese N2"],
   "logs": [
     {
-        "date": "2026-03-02",
+        "date": "2026-02-27",
         "items": [
-            { "thing": "Paper experiment", "g1": 0, "g2": 12, "g3": 0 },
-            { "thing": "Japanese vocab",   "g1": 0, "g2": 0,  "g3": 8 }
+            { "thing": "Working on github page", "g1": 0, "g2": 0, "g3": 0 },
+            { "thing": "Reading paper", "g1": 4, "g2": 0, "g3": 0 },
+            { "thing": "Coding", "g1": 18, "g2": 0, "g3": 0 }
+        ]
+    },
+    {
+        "date": "2026-02-26",
+        "items": [
+            { "thing": "Dealing exchange problem", "g1": 0, "g2": 0, "g3": 0 },
+            { "thing": "Practice Japanese 30 min", "g1": 0, "g2": 0, "g3": 10 },
+            { "thing": "Personal Meeting", "g1": 0, "g2": 0, "g3": 0 },
+            { "thing": "Project Meeting", "g1": 0, "g2": 0, "g3": 0 }
+        ]
+    },
+    {
+        "date": "2026-02-25",
+        "items": [
+            { "thing": "Writing Paper 30 min", "g1": 4, "g2": 0, "g3": 0 },
+            { "thing": "Researching on my project", "g1": 0, "g2": 0, "g3": 0 },
+            { "thing": "Preparing Power Point", "g1": 0, "g2": 0, "g3": 0 },
+            { "thing": "Exchange application", "g1": 0, "g2": 0, "g3": 0 }
+        ]
+    },
+    {
+        "date": "2026-02-24",
+        "items": [
+            { "thing": "Lab Meeting", "g1": 0, "g2": 0, "g3": 0 },
+            { "thing": "GAME AI course", "g1": 0, "g2": 0, "g3": 0 },
+            { "thing": "Writing Paper 30 min", "g1": 4, "g2": 0, "g3": 0 }
+        ]
+    },
+    {
+        "date": "2026-02-23",
+        "items": [
+            { "thing": "Go to the doctor", "g1": 0, "g2": 0, "g3": 0 }
         ]
     }
-    
   ]
 }

@@ -160,6 +160,8 @@ And make sure your tab/hash is:
   <a href="#twelve">12 Weeks</a>
 And your allowed set includes 'twelve'.
 ======================================== */
+const GOAL_WEIGHTS = [6, 2, 2];
+const WEIGHT_SUM = GOAL_WEIGHTS.reduce((a,b)=>a+b,0);
 
 let TWELVE = {
   initialized: false,
@@ -256,30 +258,30 @@ function twBuildDays(startISO, weeks) {
 function twComputeDay(st, iso) {
   const acts = st.activitiesByDate?.[iso] || [];
 
-  let p1 = 0, p2 = 0, p3 = 0; // points (0..100+)
+  let p1 = 0, p2 = 0, p3 = 0;
   for (const a of acts) {
     p1 += clamp(0, 100, Number(a.g1) || 0);
     p2 += clamp(0, 100, Number(a.g2) || 0);
     p3 += clamp(0, 100, Number(a.g3) || 0);
   }
 
-  // day ratios (cap at 100%)
   const g1 = clamp01(p1 / 100);
   const g2 = clamp01(p2 / 100);
   const g3 = clamp01(p3 / 100);
 
-  // ✅ All-day = average of goals
-  const total = (g1 + g2 + g3) / 3;
-
-  // keep raw points too (useful for UI)
+  // 🔥 Weighted 6:2:2
+  const total =
+    (GOAL_WEIGHTS[0]*g1 +
+    GOAL_WEIGHTS[1]*g2 +
+    GOAL_WEIGHTS[2]*g3) / WEIGHT_SUM;
   return { g1, g2, g3, total, acts, p1, p2, p3 };
 }
 
 function twIntensity(v01) {
   if (v01 <= 0) return 0;
-  if (v01 < 0.26) return 1;
-  if (v01 < 0.51) return 2;
-  if (v01 < 0.76) return 3;
+  if (v01 < 0.06) return 1;
+  if (v01 < 0.11) return 2;
+  if (v01 < 0.16) return 3;
   return 4;
 }
 
@@ -396,8 +398,10 @@ function twRenderWeeklyBars() {
     const wg3 = clamp01(wp3 / 100);
 
     // ✅ weekly "All" = average of 3 weekly goals
-    const wall = (wg1 + wg2 + wg3) / 3;
-
+    const wall =
+      (GOAL_WEIGHTS[0]*wg1 +
+      GOAL_WEIGHTS[1]*wg2 +
+      GOAL_WEIGHTS[2]*wg3) / WEIGHT_SUM;
     // choose displayed value based on filter
     let v = wall;
     if (TWELVE.selectedGoal === 'g1') v = wg1;
@@ -447,8 +451,10 @@ function twRenderAllPastAvgDonut() {
     const wg1 = clamp01(wp1 / 100);
     const wg2 = clamp01(wp2 / 100);
     const wg3 = clamp01(wp3 / 100);
-    const wall = (wg1 + wg2 + wg3) / 3;
-
+    const wall =
+          (GOAL_WEIGHTS[0]*wg1 +
+          GOAL_WEIGHTS[1]*wg2 +
+          GOAL_WEIGHTS[2]*wg3) / WEIGHT_SUM;
     let v = wall;
     if (TWELVE.selectedGoal === 'g1') v = wg1;
     if (TWELVE.selectedGoal === 'g2') v = wg2;
