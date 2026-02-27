@@ -12,10 +12,10 @@
   <nav class="tabs">
     <div class="tab-links">
     <a href="#about">About</a>
-    <a href="#publications">Publications</a>
-    <a href="#projects">Projects</a>
     <a href="#journal">Journals</a>
     <a href="#twelve">12 Weeks</a>
+    <a href="#publications">Publications</a>
+    <a href="#projects">Projects</a>
     <a href="#experience">Experience</a>
 
     <!-- <a href="#award">Award</a> -->
@@ -28,15 +28,15 @@
     <aside class="sidebar">
       <img src="./assets/avatar.jpeg" alt="Your Pixel Avatar" class="avatar">
       <p class="avatar-name">Liu Shih-Wen, CASPER</p>
-      <h2>Skills & Interests</h2>
-      <ul class="pixel-list">
+      <!-- <h2>Skills & Interests</h2> -->
+      <!-- <ul class="pixel-list">
         <li><span class="char-icon skill-ai"></span>LoRA & Efficient Tuning</li>
         <li><span class="char-icon skill-contrast"></span>Multi Agent Learning</li>
         <li><span class="char-icon skill-ros"></span>Weight Lifting</li>
         <li><span class="char-icon skill-pixel"></span>Book Reading</li>
         <li><span class="char-icon skill-pixel"></span>Bouldering</li>
         
-      </ul>
+      </ul> -->
 
     </aside>
 
@@ -213,14 +213,8 @@ async function initTwelveFromJson() {
   twRenderAll();
 }
 
-/* ---------- JSON -> internal state ---------- */
 function twBuildStateFromJson(data) {
-  // activitiesByDate: { 'YYYY-MM-DD': [ {name, effort, w:{g1,g2,g3}} ] }
-  const st = {
-    activitiesByDate: {},
-    selectedGoal: 'all',
-    selectedDate: null,
-  };
+  const st = { activitiesByDate: {} };
 
   const logs = Array.isArray(data.logs) ? data.logs : [];
   for (const day of logs) {
@@ -228,16 +222,12 @@ function twBuildStateFromJson(data) {
     if (!iso) continue;
 
     const items = Array.isArray(day.items) ? day.items : [];
-    st.activitiesByDate[iso] = items.map((it) => {
-      const name = (it.thing ?? it.name ?? 'Untitled').toString();
-      const effort = clamp(0, 100, Number(it.effort) || 0);
-      const w = twNormalizeWeights(
-        clamp(0, 100, Number(it.g1) || 0),
-        clamp(0, 100, Number(it.g2) || 0),
-        clamp(0, 100, Number(it.g3) || 0)
-      );
-      return { name, effort, w };
-    });
+    st.activitiesByDate[iso] = items.map((it) => ({
+      name: (it.thing ?? it.name ?? 'Untitled').toString(),
+      g1: clamp(0, 100, Number(it.g1) || 0), // points
+      g2: clamp(0, 100, Number(it.g2) || 0),
+      g3: clamp(0, 100, Number(it.g3) || 0),
+    }));
   }
   return st;
 }
@@ -263,26 +253,26 @@ function twBuildDays(startISO, weeks) {
   return out;
 }
 
-/* ---------- Compute per-day goal totals from activities ---------- */
 function twComputeDay(st, iso) {
   const acts = st.activitiesByDate?.[iso] || [];
-  let s1 = 0, s2 = 0, s3 = 0;
 
+  let p1 = 0, p2 = 0, p3 = 0; // points (0..100+)
   for (const a of acts) {
-    const effort = clamp(0, 100, Number(a.effort) || 0);
-    s1 += effort * (a.w?.g1 ?? 0);
-    s2 += effort * (a.w?.g2 ?? 0);
-    s3 += effort * (a.w?.g3 ?? 0);
+    p1 += clamp(0, 100, Number(a.g1) || 0);
+    p2 += clamp(0, 100, Number(a.g2) || 0);
+    p3 += clamp(0, 100, Number(a.g3) || 0);
   }
 
-  const g1 = clamp01(s1 / 100);
-  const g2 = clamp01(s2 / 100);
-  const g3 = clamp01(s3 / 100);
+  // day ratios (cap at 100%)
+  const g1 = clamp01(p1 / 100);
+  const g2 = clamp01(p2 / 100);
+  const g3 = clamp01(p3 / 100);
 
-  // 🔥 All = average of three goals
+  // ✅ All-day = average of goals
   const total = (g1 + g2 + g3) / 3;
 
-  return { g1, g2, g3, total, acts };
+  // keep raw points too (useful for UI)
+  return { g1, g2, g3, total, acts, p1, p2, p3 };
 }
 
 function twIntensity(v01) {
@@ -329,7 +319,7 @@ function twRenderWeekLabels() {
   for (let w = 0; w < TWELVE.weeks; w++) {
     const span = document.createElement('span');
     // label every 2 weeks to reduce clutter
-    span.textContent = (w % 2 === 0) ? `W${w + 1}` : '';
+    span.textContent = `W${w + 1}`;
     el.appendChild(span);
   }
 }
@@ -382,37 +372,49 @@ function twRenderGrid() {
   }
 }
 
-/* ---------- Render weekly bars ---------- */
 function twRenderWeeklyBars() {
   const wrap = document.getElementById('tw-weekly-bars');
   if (!wrap) return;
 
   wrap.innerHTML = '';
+
   for (let w = 0; w < TWELVE.weeks; w++) {
-    let sum = 0;
+    // sum weekly points per goal
+    let wp1 = 0, wp2 = 0, wp3 = 0;
+
     for (let r = 0; r < 7; r++) {
       const iso = TWELVE.days[w * 7 + r].iso;
       const d = twComputeDay(TWELVE.state, iso);
-
-      let val = 0;
-      if (TWELVE.selectedGoal === 'all') val = d.total;
-      else if (TWELVE.selectedGoal === 'g1') val = d.g1;
-      else if (TWELVE.selectedGoal === 'g2') val = d.g2;
-      else if (TWELVE.selectedGoal === 'g3') val = d.g3;
-
-      sum += val;
+      wp1 += d.p1 || 0;
+      wp2 += d.p2 || 0;
+      wp3 += d.p3 || 0;
     }
-    const avg = sum / 7; // 0..1
+
+    // convert to weekly % (cap at 100)
+    const wg1 = clamp01(wp1 / 100);
+    const wg2 = clamp01(wp2 / 100);
+    const wg3 = clamp01(wp3 / 100);
+
+    // ✅ weekly "All" = average of 3 weekly goals
+    const wall = (wg1 + wg2 + wg3) / 3;
+
+    // choose displayed value based on filter
+    let v = wall;
+    if (TWELVE.selectedGoal === 'g1') v = wg1;
+    if (TWELVE.selectedGoal === 'g2') v = wg2;
+    if (TWELVE.selectedGoal === 'g3') v = wg3;
+
+    const pctInt = Math.round(v * 100);
 
     const row = document.createElement('div');
     row.className = 'tw-weekbar';
     row.innerHTML = `
       <div class="tw-weekbar-top">
         <span>Week ${w + 1}</span>
-        <span>${pct(avg)}</span>
+        <span>${pctInt}%</span>
       </div>
       <div class="tw-weekbar-track">
-        <div class="tw-weekbar-fill" style="width:${Math.round(avg * 100)}%"></div>
+        <div class="tw-weekbar-fill" style="width:${pctInt}%"></div>
       </div>
     `;
     wrap.appendChild(row);
@@ -424,103 +426,105 @@ function twRenderAllPastAvgDonut() {
   const text = document.getElementById('tw-avg-text');
   if (!donut || !text) return;
 
-  let weekSum = 0;
-  let weekCount = 0;
+  let sum = 0;
+  let cnt = 0;
 
   for (let w = 0; w < TWELVE.weeks; w++) {
-
-    let sum = 0;
-    let hasAnyActivity = false;
+    let wp1 = 0, wp2 = 0, wp3 = 0;
+    let hasAny = false;
 
     for (let r = 0; r < 7; r++) {
       const iso = TWELVE.days[w * 7 + r].iso;
       const d = twComputeDay(TWELVE.state, iso);
-
-      let val = 0;
-      if (TWELVE.selectedGoal === 'all') val = d.total;
-      else if (TWELVE.selectedGoal === 'g1') val = d.g1;
-      else if (TWELVE.selectedGoal === 'g2') val = d.g2;
-      else if (TWELVE.selectedGoal === 'g3') val = d.g3;
-
-      if (val > 0) hasAnyActivity = true;
-
-      sum += val;
+      if ((d.p1 || 0) + (d.p2 || 0) + (d.p3 || 0) > 0) hasAny = true;
+      wp1 += d.p1 || 0;
+      wp2 += d.p2 || 0;
+      wp3 += d.p3 || 0;
     }
 
-    if (hasAnyActivity) {
-      const weeklyAvg = sum / 7;   // EXACT SAME AS WEEK BAR
-      weekSum += weeklyAvg;
-      weekCount += 1;
-    }
+    if (!hasAny) continue;
+
+    const wg1 = clamp01(wp1 / 100);
+    const wg2 = clamp01(wp2 / 100);
+    const wg3 = clamp01(wp3 / 100);
+    const wall = (wg1 + wg2 + wg3) / 3;
+
+    let v = wall;
+    if (TWELVE.selectedGoal === 'g1') v = wg1;
+    if (TWELVE.selectedGoal === 'g2') v = wg2;
+    if (TWELVE.selectedGoal === 'g3') v = wg3;
+
+    sum += v;
+    cnt += 1;
   }
 
-  const avg = weekCount > 0 ? weekSum / weekCount : 0;
+  const avg = cnt ? sum / cnt : 0;
   const pctInt = Math.round(avg * 100);
-
-  console.log("DONUT DEBUG:", {weekSum, weekCount, avg, pctInt});
 
   const rest = document.body.classList.contains('light')
     ? 'rgba(0,0,0,0.10)'
     : 'rgba(255,255,255,0.10)';
 
-  donut.style.background =
-    `conic-gradient(var(--accent) ${pctInt * 3.6}deg, ${rest} 0deg)`;
-
+  donut.style.background = `conic-gradient(var(--accent) ${pctInt * 3.6}deg, ${rest} 0deg)`;
   text.textContent = `${pctInt}%`;
 }
 
-/* ---------- Selected day details ---------- */
 function twRenderSelectedDay() {
-  const info = document.getElementById('tw-day-info');
-  const list = document.getElementById('tw-act-list');
-  if (!info && !list) return;
+  const infoEl = document.getElementById('tw-day-info');
+  const listEl = document.getElementById('tw-act-list');
+  if (!infoEl || !listEl) return;
 
-  if (!TWELVE.selectedDate) {
-    if (info) info.textContent = 'Click a cell';
-    if (list) list.innerHTML = '';
+  const iso = TWELVE.selectedDate;
+  if (!iso) {
+    infoEl.textContent = 'Click a cell';
+    listEl.innerHTML = '';
     return;
   }
 
-  const iso = TWELVE.selectedDate;
   const d = twComputeDay(TWELVE.state, iso);
 
-  if (info) {
-    info.innerHTML = `
-      <div><strong>${iso}</strong></div>
-      <div style="margin-top:0.25rem; opacity:0.85;">
-        Total: <strong>${pct(d.total)}</strong>
-        · ${TWELVE.goals[0]} ${pct(d.g1)}
-        · ${TWELVE.goals[1]} ${pct(d.g2)}
-        · ${TWELVE.goals[2]} ${pct(d.g3)}
-      </div>
-    `;
+  // Header info
+  const pAll = Math.round(d.total * 100);
+  const p1 = Math.round(d.g1 * 100);
+  const p2 = Math.round(d.g2 * 100);
+  const p3 = Math.round(d.g3 * 100);
+
+  infoEl.innerHTML = `
+    <div><strong>${iso}</strong></div>
+    <div style="opacity:.8; margin-top:.3rem;">
+      All: <strong>${pAll}%</strong>
+      &nbsp; · &nbsp; G1: <strong>${p1}%</strong>
+      &nbsp; · &nbsp; G2: <strong>${p2}%</strong>
+      &nbsp; · &nbsp; G3: <strong>${p3}%</strong>
+    </div>
+  `;
+
+  // List items
+  const acts = d.acts || [];
+  if (!acts.length) {
+    listEl.innerHTML = `<div style="opacity:.75;">No items logged.</div>`;
+    return;
   }
 
-  if (list) {
-    list.innerHTML = '';
-    if (!d.acts.length) {
-      list.innerHTML = `<div style="opacity:.7;">No activities recorded.</div>`;
-      return;
-    }
+  listEl.innerHTML = '';
+  for (const a of acts) {
+    const c1 = Math.round(Number(a.g1) || 0);
+    const c2 = Math.round(Number(a.g2) || 0);
+    const c3 = Math.round(Number(a.g3) || 0);
+    const sum = c1 + c2 + c3;
 
-    for (const a of d.acts) {
-      const c1 = Math.round(a.effort * (a.w?.g1 ?? 0));
-      const c2 = Math.round(a.effort * (a.w?.g2 ?? 0));
-      const c3 = Math.round(a.effort * (a.w?.g3 ?? 0));
-
-      const div = document.createElement('div');
-      div.className = 'tw-act-item';
-      div.innerHTML = `
-        <div class="tw-act-top">
-          <div class="tw-act-name">${escapeHtml(a.name)}</div>
-          <div class="tw-act-meta">${Math.round(a.effort)}%</div>
-        </div>
-        <div class="tw-act-detail">
-          Contrib → ${TWELVE.goals[0]} ${c1} · ${TWELVE.goals[1]} ${c2} · ${TWELVE.goals[2]} ${c3}
-        </div>
-      `;
-      list.appendChild(div);
-    }
+    const div = document.createElement('div');
+    div.className = 'tw-act-item';
+    div.innerHTML = `
+      <div class="tw-act-top">
+        <div class="tw-act-name">${escapeHtml(a.name || 'Untitled')}</div>
+        <div class="tw-act-meta">+${sum}%</div>
+      </div>
+      <div class="tw-act-detail">
+        G1 +${c1}% · G2 +${c2}% · G3 +${c3}%
+      </div>
+    `;
+    listEl.appendChild(div);
   }
 }
 

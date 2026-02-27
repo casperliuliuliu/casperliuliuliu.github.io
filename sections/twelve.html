@@ -35,7 +35,13 @@
       <div class="tw-week-labels" id="tw-week-labels"></div>
       <div class="tw-grid" id="tw-grid"></div>
       <div class="tw-day-labels">
-        <span>Mon</span><span></span><span>Wed</span><span></span><span>Fri</span><span></span><span></span>
+        <span>Mon</span>
+        <span>Tue</span>
+        <span>Wed</span>
+        <span>Thu</span>
+        <span>Fri</span>
+        <span>Sat</span>
+        <span>Sun</span>
       </div>
     </div>
 
@@ -125,64 +131,8 @@
   }
 }
 
-    .tw-grid-wrap {
-      position: relative;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1rem 1rem 0.9rem 3.2rem; /* left room for day labels */
-      background: rgba(255,255,255,0.02);
-      overflow-x: auto;
-    }
-    body.light .tw-grid-wrap { background: rgba(0,0,0,0.02); }
 
-    /* REQUIRED: GitHub-like layout */
-    .tw-grid {
-      display: grid;
-      grid-auto-flow: column;      /* columns = weeks */
-      grid-auto-columns: 14px;     /* width of each week column */
-      grid-template-rows: repeat(7, 14px);
-      gap: 4px;
-      width: max-content;
-    }
 
-    .tw-week-labels {
-      position: absolute;
-      left: 3.2rem;
-      top: 0.45rem;
-      display: grid;
-      grid-auto-flow: column;
-      grid-auto-columns: 14px;
-      gap: 4px;
-      pointer-events: none;
-      opacity: 0.7;
-      font-size: 0.75rem;
-      width: max-content;
-    }
-
-    .tw-day-labels {
-      position: absolute;
-      left: 0.7rem;
-      top: 1rem;
-      display: grid;
-      grid-template-rows: repeat(7, 14px);
-      gap: 4px;
-      font-size: 0.75rem;
-      opacity: 0.75;
-      pointer-events: none;
-      align-items: center;
-    }
-    .tw-day-labels span { height: 14px; display: flex; align-items: center; }
-
-    .tw-cell {
-      width: 14px;
-      height: 14px;
-      border-radius: 4px;
-      border: 1px solid rgba(255,255,255,0.06);
-      cursor: pointer;
-      transition: transform 0.08s ease, border-color 0.12s ease;
-      display: inline-block;
-    }
-    body.light .tw-cell { border: 1px solid rgba(0,0,0,0.08); }
 
     .tw-cell:hover { transform: translateY(-1px); border-color: var(--accent); }
     .tw-cell.selected { outline: 2px solid var(--accent); outline-offset: 2px; }
@@ -264,22 +214,79 @@
       border: 1px solid var(--border);
       font-weight: 800;
     }
-    .tw-grid-wrap{
+/* ===== Calendar sizing (single source of truth) ===== */
+#twelve-weeks{
+  --cell: 26px;
+  --gap: 7px;
+  --labelLeft: 4rem;
+  --labelTop: 2.8rem;
+}
+
+.tw-grid-wrap{
   position: relative;
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 2rem 1rem 1rem 3.2rem; /* more top space for week labels */
+  padding: 2.8rem 1rem 1rem var(--labelLeft);
+  background: rgba(255,255,255,0.02);
   overflow-x: auto;
 }
+body.light .tw-grid-wrap{ background: rgba(0,0,0,0.02); }
 
-/* IMPORTANT: prevents weird stretching */
+/* The grid tracks match the cell size */
 .tw-grid{
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: 13px;     /* slightly smaller = more GitHub-like */
-  grid-template-rows: repeat(7, 13px);
-  gap: 4px;
-  width: max-content;          /* <- key */
+  grid-auto-columns: var(--cell);
+  grid-template-rows: repeat(7, var(--cell));
+  gap: var(--gap);
+  width: max-content;
+}
+
+/* Cells do NOT set their own size differently */
+.tw-cell{
+  width: var(--cell);
+  height: var(--cell);
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.06);
+  box-sizing: border-box;
+  position: relative;
+  cursor: pointer;
+  display: block; /* important: avoid inline layout weirdness */
+}
+body.light .tw-cell{ border: 1px solid rgba(0,0,0,0.08); }
+
+/* Week labels align to the same grid columns */
+.tw-week-labels{
+  position: absolute;
+  left: var(--labelLeft);
+  top: 0.55rem;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: var(--cell);
+  gap: var(--gap);
+  width: max-content;
+  pointer-events: none;
+  opacity: 0.7;
+  font-size: 0.75rem;
+}
+
+/* Day labels align to the same grid rows */
+.tw-day-labels{
+  position: absolute;
+  left: 0.7rem;
+  top: var(--labelTop);
+  display: grid;
+  grid-template-rows: repeat(7, var(--cell));
+  gap: var(--gap);
+  align-items: center;
+  font-size: 0.75rem;
+  opacity: 0.75;
+  pointer-events: none;
+}
+.tw-day-labels span{
+  height: var(--cell);
+  display: flex;
+  align-items: center;
 }
   </style>
 
