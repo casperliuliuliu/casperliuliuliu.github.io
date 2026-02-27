@@ -14,8 +14,10 @@
     <a href="#about">About</a>
     <a href="#publications">Publications</a>
     <a href="#projects">Projects</a>
-    <a href="#journal">Journal</a>
+    <a href="#journal">Journals</a>
+    <a href="#twelve">12 Weeks</a>
     <a href="#experience">Experience</a>
+
     <!-- <a href="#award">Award</a> -->
     </div>
     <button id="theme-toggle">◐</button>
@@ -48,8 +50,8 @@
       </section>
     </main>
   </div>
-  <script>
-  const allowed = new Set(['about','publications','projects','experience','award','journal']);
+<script>
+  const allowed = new Set(['about','publications','projects','experience','journal','twelve']);
   const sectionEl = document.getElementById('section');
 
   function load(id){
@@ -64,6 +66,7 @@
         document.querySelectorAll('.tabs a').forEach(a=>{
           a.classList.toggle('active', a.getAttribute('href') === `#${id}`);
         });
+        if (id === 'twelve') setTimeout(initTwelveFromJson, 0);
       });
   }
 
@@ -79,36 +82,46 @@
     const openBtn = e.target.closest('.journal-open');
     const backBtn = e.target.closest('.journal-back');
 
+    // Open entry (load from /journals)
     if (openBtn) {
-      const target = openBtn.dataset.entry;
+      const file = openBtn.dataset.file; // <-- MUST be data-file in sections/journal.html
       const listView = sectionEl.querySelector('#journal-list');
       const entryView = sectionEl.querySelector('#journal-entry');
-      const entries = sectionEl.querySelectorAll('.journal-entry-content');
+      const article = sectionEl.querySelector('#journal-article');
 
-      if (!listView || !entryView) return;
+      if (!listView || !entryView || !article || !file) return;
 
       listView.classList.remove('active');
       entryView.classList.add('active');
 
-      entries.forEach(x => x.classList.remove('active'));
-      const targetEl = sectionEl.querySelector(`#${CSS.escape(target)}`);
-      if (targetEl) targetEl.classList.add('active');
+      article.innerHTML = `<h3 class="journal-entry-title">Loading...</h3>`;
+
+      fetch(`journals/${file}.html`)
+        .then(r => r.text())
+        .then(html => {
+          article.innerHTML = html;
+        })
+        .catch(() => {
+          article.innerHTML =
+            `<h3 class="journal-entry-title">Not found</h3>
+             <p>Could not load journals/${file}.html</p>`;
+        });
+
+      return; // stop here
     }
 
+    // Back to list
     if (backBtn) {
       const listView = sectionEl.querySelector('#journal-list');
       const entryView = sectionEl.querySelector('#journal-entry');
-      const entries = sectionEl.querySelectorAll('.journal-entry-content');
-
       if (!listView || !entryView) return;
 
       entryView.classList.remove('active');
       listView.classList.add('active');
-      entries.forEach(x => x.classList.remove('active'));
     }
   });
 
-  // ✅ Theme toggle (should be global, not inside section click)
+  // ✅ Theme toggle
   const toggleBtn = document.getElementById('theme-toggle');
 
   function setTheme(mode){
@@ -122,8 +135,430 @@
     setTheme(isLight ? 'dark' : 'light');
   });
 
-  // Load saved theme
+  // default = light
   setTheme(localStorage.getItem('theme') || 'light');
+
+/* ============================
+   12-WEEKS MODULE (index.html)
+   - Data source: /twelve.json
+   - Requires containers in sections/twelve.html:
+       #tw-grid
+       #tw-week-labels        (optional)
+       #tw-weekly-bars
+       #tw-avg-donut
+       #tw-avg-text
+       #tw-day-info
+       #tw-act-list
+       .tw-goal-btn buttons with data-goal="all|g1|g2|g3"  (optional)
+   - Your router must call initTwelveFromJson() after loading #twelve section.
+   ============================ */
+
+/* ======== Hook into your router ========
+Inside your load(id) .then(html => { ... }) add:
+  if (id === 'twelve') setTimeout(initTwelveFromJson, 0);
+And make sure your tab/hash is:
+  <a href="#twelve">12 Weeks</a>
+And your allowed set includes 'twelve'.
+======================================== */
+
+let TWELVE = {
+  initialized: false,
+  data: null,
+  state: null,
+  days: [],
+  selectedGoal: 'all',
+  selectedDate: null,
+  startISO: null,
+  weeks: 12,
+  goals: ['Goal 1', 'Goal 2', 'Goal 3'],
+};
+
+async function initTwelveFromJson() {
+  // Only run when twelve section exists on page
+  const grid = document.getElementById('tw-grid');
+  if (!grid) return;
+
+  // Load JSON
+  let data;
+  try {
+    const r = await fetch('twelve.json', { cache: 'no-store' });
+    if (!r.ok) throw new Error(`HTTP ${r.status} loading twelve.json`);
+    data = await r.json();
+  } catch (err) {
+    console.error(err);
+    grid.innerHTML = `<p style="opacity:.8;">Failed to load twelve.json: ${err.message}</p>`;
+    return;
+  }
+
+  // Store and render
+  TWELVE.data = data;
+  TWELVE.startISO = data.start || TWELVE.startISO || twDefaultStartMondayISO();
+  TWELVE.weeks = Number.isFinite(data.weeks) ? data.weeks : 12;
+  TWELVE.goals = Array.isArray(data.goals) && data.goals.length === 3 ? data.goals : TWELVE.goals;
+
+  // Build state from JSON logs
+  TWELVE.state = twBuildStateFromJson(data);
+
+  // Restore UI selections (optional)
+  TWELVE.selectedGoal = TWELVE.state.selectedGoal || 'all';
+  TWELVE.selectedDate = TWELVE.state.selectedDate || null;
+
+  // Build date grid
+  TWELVE.days = twBuildDays(TWELVE.startISO, TWELVE.weeks);
+
+  // Bind goal selector buttons (if present)
+  twBindGoalButtons();
+
+  // Render everything
+  twRenderAll();
+}
+
+/* ---------- JSON -> internal state ---------- */
+function twBuildStateFromJson(data) {
+  // activitiesByDate: { 'YYYY-MM-DD': [ {name, effort, w:{g1,g2,g3}} ] }
+  const st = {
+    activitiesByDate: {},
+    selectedGoal: 'all',
+    selectedDate: null,
+  };
+
+  const logs = Array.isArray(data.logs) ? data.logs : [];
+  for (const day of logs) {
+    const iso = (day.date || '').trim();
+    if (!iso) continue;
+
+    const items = Array.isArray(day.items) ? day.items : [];
+    st.activitiesByDate[iso] = items.map((it) => {
+      const name = (it.thing ?? it.name ?? 'Untitled').toString();
+      const effort = clamp(0, 100, Number(it.effort) || 0);
+      const w = twNormalizeWeights(
+        clamp(0, 100, Number(it.g1) || 0),
+        clamp(0, 100, Number(it.g2) || 0),
+        clamp(0, 100, Number(it.g3) || 0)
+      );
+      return { name, effort, w };
+    });
+  }
+  return st;
+}
+
+function twNormalizeWeights(g1, g2, g3) {
+  const s = g1 + g2 + g3;
+  if (s <= 0) return { g1: 0, g2: 0, g3: 0 };
+  return { g1: g1 / s, g2: g2 / s, g3: g3 / s };
+}
+
+/* ---------- Build day list for 12 weeks ---------- */
+// We use GitHub-like layout: columns=weeks, rows=7 days starting Monday.
+function twBuildDays(startISO, weeks) {
+  const start = parseISODate(startISO);
+  const out = [];
+  for (let w = 0; w < weeks; w++) {
+    for (let r = 0; r < 7; r++) {
+      const d = new Date(start);
+      d.setDate(start.getDate() + w * 7 + r);
+      out.push({ iso: toISO(d), week: w, row: r });
+    }
+  }
+  return out;
+}
+
+/* ---------- Compute per-day goal totals from activities ---------- */
+function twComputeDay(st, iso) {
+  const acts = st.activitiesByDate?.[iso] || [];
+  let s1 = 0, s2 = 0, s3 = 0;
+
+  for (const a of acts) {
+    const effort = clamp(0, 100, Number(a.effort) || 0);
+    s1 += effort * (a.w?.g1 ?? 0);
+    s2 += effort * (a.w?.g2 ?? 0);
+    s3 += effort * (a.w?.g3 ?? 0);
+  }
+
+  const g1 = clamp01(s1 / 100);
+  const g2 = clamp01(s2 / 100);
+  const g3 = clamp01(s3 / 100);
+
+  // 🔥 All = average of three goals
+  const total = (g1 + g2 + g3) / 3;
+
+  return { g1, g2, g3, total, acts };
+}
+
+function twIntensity(v01) {
+  if (v01 <= 0) return 0;
+  if (v01 < 0.26) return 1;
+  if (v01 < 0.51) return 2;
+  if (v01 < 0.76) return 3;
+  return 4;
+}
+
+/* ---------- UI: goal buttons ---------- */
+function twBindGoalButtons() {
+  const btns = document.querySelectorAll('.tw-goal-btn');
+  if (!btns.length) return;
+
+  btns.forEach((btn) => {
+    btn.classList.toggle('active', btn.dataset.goal === TWELVE.selectedGoal);
+    btn.onclick = () => {
+      TWELVE.selectedGoal = btn.dataset.goal || 'all';
+      btns.forEach((b) => b.classList.toggle('active', b.dataset.goal === TWELVE.selectedGoal));
+      twRenderAll();
+    };
+  });
+
+  // If you show goal names somewhere, you can inject them here if you want
+  // (Not required.)
+}
+
+/* ---------- Render all ---------- */
+function twRenderAll() {
+  twRenderWeekLabels();
+  twRenderGrid();
+  twRenderWeeklyBars();
+  twRenderAllPastAvgDonut(); // last 4 weeks
+  twRenderSelectedDay();
+}
+
+/* ---------- Render week labels (optional) ---------- */
+function twRenderWeekLabels() {
+  const el = document.getElementById('tw-week-labels');
+  if (!el) return;
+
+  el.innerHTML = '';
+  for (let w = 0; w < TWELVE.weeks; w++) {
+    const span = document.createElement('span');
+    // label every 2 weeks to reduce clutter
+    span.textContent = (w % 2 === 0) ? `W${w + 1}` : '';
+    el.appendChild(span);
+  }
+}
+
+/* ---------- Render grid ---------- */
+function twRenderGrid() {
+  const grid = document.getElementById('tw-grid');
+  if (!grid) return;
+
+  grid.innerHTML = '';
+
+  // Expect your CSS to set #tw-grid as:
+  // display:grid; grid-auto-flow:column; grid-template-rows: repeat(7, ...);
+  // If not, it will still render but may look odd.
+  for (let w = 0; w < TWELVE.weeks; w++) {
+    for (let r = 0; r < 7; r++) {
+      const iso = TWELVE.days[w * 7 + r].iso;
+      const d = twComputeDay(TWELVE.state, iso);
+
+      let val = 0;
+      if (TWELVE.selectedGoal === 'all') val = d.total;
+      else if (TWELVE.selectedGoal === 'g1') val = d.g1;
+      else if (TWELVE.selectedGoal === 'g2') val = d.g2;
+      else if (TWELVE.selectedGoal === 'g3') val = d.g3;
+
+      const lv = twIntensity(val);
+
+      const cell = document.createElement('div');
+      cell.className = `tw-cell lv${lv}`;
+      cell.dataset.iso = iso;
+
+      // selection outline
+      if (TWELVE.selectedDate === iso) cell.classList.add('selected');
+
+      // tooltip
+      cell.title =
+        `${iso}\n` +
+        `${TWELVE.goals[0]}: ${pct(d.g1)}\n` +
+        `${TWELVE.goals[1]}: ${pct(d.g2)}\n` +
+        `${TWELVE.goals[2]}: ${pct(d.g3)}\n` +
+        `Total: ${pct(d.total)}`;
+
+      cell.onclick = () => {
+        TWELVE.selectedDate = iso;
+        twRenderAll(); // refresh selection + side panel
+      };
+
+      grid.appendChild(cell);
+    }
+  }
+}
+
+/* ---------- Render weekly bars ---------- */
+function twRenderWeeklyBars() {
+  const wrap = document.getElementById('tw-weekly-bars');
+  if (!wrap) return;
+
+  wrap.innerHTML = '';
+  for (let w = 0; w < TWELVE.weeks; w++) {
+    let sum = 0;
+    for (let r = 0; r < 7; r++) {
+      const iso = TWELVE.days[w * 7 + r].iso;
+      const d = twComputeDay(TWELVE.state, iso);
+
+      let val = 0;
+      if (TWELVE.selectedGoal === 'all') val = d.total;
+      else if (TWELVE.selectedGoal === 'g1') val = d.g1;
+      else if (TWELVE.selectedGoal === 'g2') val = d.g2;
+      else if (TWELVE.selectedGoal === 'g3') val = d.g3;
+
+      sum += val;
+    }
+    const avg = sum / 7; // 0..1
+
+    const row = document.createElement('div');
+    row.className = 'tw-weekbar';
+    row.innerHTML = `
+      <div class="tw-weekbar-top">
+        <span>Week ${w + 1}</span>
+        <span>${pct(avg)}</span>
+      </div>
+      <div class="tw-weekbar-track">
+        <div class="tw-weekbar-fill" style="width:${Math.round(avg * 100)}%"></div>
+      </div>
+    `;
+    wrap.appendChild(row);
+  }
+}
+
+function twRenderAllPastAvgDonut() {
+  const donut = document.getElementById('tw-avg-donut');
+  const text = document.getElementById('tw-avg-text');
+  if (!donut || !text) return;
+
+  let weekSum = 0;
+  let weekCount = 0;
+
+  for (let w = 0; w < TWELVE.weeks; w++) {
+
+    let sum = 0;
+    let hasAnyActivity = false;
+
+    for (let r = 0; r < 7; r++) {
+      const iso = TWELVE.days[w * 7 + r].iso;
+      const d = twComputeDay(TWELVE.state, iso);
+
+      let val = 0;
+      if (TWELVE.selectedGoal === 'all') val = d.total;
+      else if (TWELVE.selectedGoal === 'g1') val = d.g1;
+      else if (TWELVE.selectedGoal === 'g2') val = d.g2;
+      else if (TWELVE.selectedGoal === 'g3') val = d.g3;
+
+      if (val > 0) hasAnyActivity = true;
+
+      sum += val;
+    }
+
+    if (hasAnyActivity) {
+      const weeklyAvg = sum / 7;   // EXACT SAME AS WEEK BAR
+      weekSum += weeklyAvg;
+      weekCount += 1;
+    }
+  }
+
+  const avg = weekCount > 0 ? weekSum / weekCount : 0;
+  const pctInt = Math.round(avg * 100);
+
+  console.log("DONUT DEBUG:", {weekSum, weekCount, avg, pctInt});
+
+  const rest = document.body.classList.contains('light')
+    ? 'rgba(0,0,0,0.10)'
+    : 'rgba(255,255,255,0.10)';
+
+  donut.style.background =
+    `conic-gradient(var(--accent) ${pctInt * 3.6}deg, ${rest} 0deg)`;
+
+  text.textContent = `${pctInt}%`;
+}
+
+/* ---------- Selected day details ---------- */
+function twRenderSelectedDay() {
+  const info = document.getElementById('tw-day-info');
+  const list = document.getElementById('tw-act-list');
+  if (!info && !list) return;
+
+  if (!TWELVE.selectedDate) {
+    if (info) info.textContent = 'Click a cell';
+    if (list) list.innerHTML = '';
+    return;
+  }
+
+  const iso = TWELVE.selectedDate;
+  const d = twComputeDay(TWELVE.state, iso);
+
+  if (info) {
+    info.innerHTML = `
+      <div><strong>${iso}</strong></div>
+      <div style="margin-top:0.25rem; opacity:0.85;">
+        Total: <strong>${pct(d.total)}</strong>
+        · ${TWELVE.goals[0]} ${pct(d.g1)}
+        · ${TWELVE.goals[1]} ${pct(d.g2)}
+        · ${TWELVE.goals[2]} ${pct(d.g3)}
+      </div>
+    `;
+  }
+
+  if (list) {
+    list.innerHTML = '';
+    if (!d.acts.length) {
+      list.innerHTML = `<div style="opacity:.7;">No activities recorded.</div>`;
+      return;
+    }
+
+    for (const a of d.acts) {
+      const c1 = Math.round(a.effort * (a.w?.g1 ?? 0));
+      const c2 = Math.round(a.effort * (a.w?.g2 ?? 0));
+      const c3 = Math.round(a.effort * (a.w?.g3 ?? 0));
+
+      const div = document.createElement('div');
+      div.className = 'tw-act-item';
+      div.innerHTML = `
+        <div class="tw-act-top">
+          <div class="tw-act-name">${escapeHtml(a.name)}</div>
+          <div class="tw-act-meta">${Math.round(a.effort)}%</div>
+        </div>
+        <div class="tw-act-detail">
+          Contrib → ${TWELVE.goals[0]} ${c1} · ${TWELVE.goals[1]} ${c2} · ${TWELVE.goals[2]} ${c3}
+        </div>
+      `;
+      list.appendChild(div);
+    }
+  }
+}
+
+/* ---------- Utilities ---------- */
+function pct(v01) { return `${Math.round(v01 * 100)}%`; }
+function clamp(min, max, x) { return Math.max(min, Math.min(max, x)); }
+function clamp01(x) { return clamp(0, 1, x); }
+
+function parseISODate(iso) {
+  const [y, m, d] = iso.split('-').map(Number);
+  return new Date(y, m - 1, d);
+}
+function toISO(d) {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+}
+
+// Default plan start: this week's Monday
+function twDefaultStartMondayISO() {
+  const now = new Date();
+  const day = now.getDay(); // 0 Sun .. 6 Sat
+  const delta = (day === 0) ? -6 : (1 - day); // shift to Monday
+  const mon = new Date(now);
+  mon.setDate(now.getDate() + delta);
+  return toISO(mon);
+}
+
+function escapeHtml(s) {
+  return String(s)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;');
+}
+
 </script>
   
 </body>

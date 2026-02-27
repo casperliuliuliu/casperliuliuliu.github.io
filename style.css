@@ -31,6 +31,9 @@ body.light {
   --sidebar-bg: #ffffff;    /* clean white */
   --content-bg: #ffffff;    /* clean content card */
   --accent: #b8860b;        /* elegant gold (less neon) */
+  --accent-red:  #FF3B3B;     /* red gem */
+  --accent-green:#2DFF7A;     /* green gem */
+  --accent-blue: #3AA7FF;     /* blue gem */
   --text: #1c1c1c;          /* deep charcoal */
   --border: #dcdfe6;        /* subtle divider */
   --avatar-color: #0f9d58;
@@ -375,32 +378,12 @@ body.light {
 
 }
 
-
-.journal-view { display: none; }
-.journal-view.active { display: block; }
-
-.journal-index { list-style: none; padding: 0; margin-top: 1.5rem; }
-.journal-index li { margin-bottom: 1rem; }
-
-.journal-index button {
-  background: none; border: none;
-  color: var(--accent);
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 1rem;
-  padding: 0;
+.tw-goal-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
 }
-.journal-index button:hover { text-decoration: underline; }
 
-.journal-entry-content { display: none; margin-top: 1.5rem; }
-.journal-entry-content.active { display: block; }
-
-.journal-back {
-  background: none;
-  border: none;
-  /* color: white;           make it white */
-  cursor: pointer;
-  padding: 0;
-  font-size: 1.3rem;      /* bigger text */
-  font-weight: bold;      /* stronger presence */
+.tw-goal-btn.active {
+  font-weight: 600;
 }
