@@ -10,12 +10,15 @@
 <body>
   <!-- TOP TABS -->
   <nav class="tabs">
+    <div class="tab-links">
     <a href="#about">About</a>
     <a href="#publications">Publications</a>
     <a href="#projects">Projects</a>
-    <a href="#experience">Experience</a>
-    <a href="#award">Award</a>
     <a href="#journal">Journal</a>
+    <a href="#experience">Experience</a>
+    <!-- <a href="#award">Award</a> -->
+    </div>
+    <button id="theme-toggle">◐</button>
   </nav>
 
   <div class="layout">
@@ -46,27 +49,82 @@
     </main>
   </div>
   <script>
-    const allowed = new Set(['about','publications','projects','experience','award','journal']);
+  const allowed = new Set(['about','publications','projects','experience','award','journal']);
+  const sectionEl = document.getElementById('section');
 
-    function load(id){
-      if(!allowed.has(id)) id = 'about';
-      fetch(`sections/${id}.html`)
-        .then(r => r.text())
-        .then(html => document.getElementById('section').innerHTML = html);
+  function load(id){
+    if(!allowed.has(id)) id = 'about';
 
-      // optional: highlight active tab
-      document.querySelectorAll('.tabs a').forEach(a=>{
-        a.classList.toggle('active', a.getAttribute('href') === `#${id}`);
+    fetch(`sections/${id}.html`)
+      .then(r => r.text())
+      .then(html => {
+        sectionEl.innerHTML = html;
+
+        // highlight active tab
+        document.querySelectorAll('.tabs a').forEach(a=>{
+          a.classList.toggle('active', a.getAttribute('href') === `#${id}`);
+        });
       });
+  }
+
+  function current(){
+    return location.hash.replace('#','') || 'about';
+  }
+
+  window.addEventListener('hashchange', () => load(current()));
+  load(current());
+
+  // ✅ Journal click handling (dynamic content)
+  sectionEl.addEventListener('click', (e) => {
+    const openBtn = e.target.closest('.journal-open');
+    const backBtn = e.target.closest('.journal-back');
+
+    if (openBtn) {
+      const target = openBtn.dataset.entry;
+      const listView = sectionEl.querySelector('#journal-list');
+      const entryView = sectionEl.querySelector('#journal-entry');
+      const entries = sectionEl.querySelectorAll('.journal-entry-content');
+
+      if (!listView || !entryView) return;
+
+      listView.classList.remove('active');
+      entryView.classList.add('active');
+
+      entries.forEach(x => x.classList.remove('active'));
+      const targetEl = sectionEl.querySelector(`#${CSS.escape(target)}`);
+      if (targetEl) targetEl.classList.add('active');
     }
 
-    function current(){
-      return location.hash.replace('#','') || 'about';
-    }
+    if (backBtn) {
+      const listView = sectionEl.querySelector('#journal-list');
+      const entryView = sectionEl.querySelector('#journal-entry');
+      const entries = sectionEl.querySelectorAll('.journal-entry-content');
 
-    window.addEventListener('hashchange', () => load(current()));
-    load(current());
-  </script>
+      if (!listView || !entryView) return;
+
+      entryView.classList.remove('active');
+      listView.classList.add('active');
+      entries.forEach(x => x.classList.remove('active'));
+    }
+  });
+
+  // ✅ Theme toggle (should be global, not inside section click)
+  const toggleBtn = document.getElementById('theme-toggle');
+
+  function setTheme(mode){
+    document.body.classList.toggle('light', mode === 'light');
+    localStorage.setItem('theme', mode);
+    toggleBtn.textContent = mode === 'light' ? '◐' : '◑';
+  }
+
+  toggleBtn.addEventListener('click', () => {
+    const isLight = document.body.classList.contains('light');
+    setTheme(isLight ? 'dark' : 'light');
+  });
+
+  // Load saved theme
+  setTheme(localStorage.getItem('theme') || 'light');
+</script>
   
 </body>
 </html>

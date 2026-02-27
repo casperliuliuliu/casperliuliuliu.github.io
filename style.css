@@ -9,6 +9,7 @@
   --accent: #FFD700;       /* arcade yellow */
   --text: #f0f0f0;         /* soft light gray */
   --border: #273c75;       /* muted royal blue */
+  --avatar-color: #33cc33;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -22,7 +23,19 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  transition: background 0.3s ease, color 0.3s ease;
 }
+
+body.light {
+  --bg: #f6f8fc;            /* soft academic gray */
+  --sidebar-bg: #ffffff;    /* clean white */
+  --content-bg: #ffffff;    /* clean content card */
+  --accent: #b8860b;        /* elegant gold (less neon) */
+  --text: #1c1c1c;          /* deep charcoal */
+  --border: #dcdfe6;        /* subtle divider */
+  --avatar-color: #0f9d58;
+}
+
 .center-text {
   text-align: center;
 }
@@ -30,9 +43,14 @@ body {
 /* TOP TABS */
 .tabs {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  padding: 0 10rem;
   background: var(--sidebar-bg);
   border-bottom: 1px solid var(--border);
+}
+.tab-links {
+  margin: 0 auto;   /* center the links */
+  display: flex;
 }
 .tabs a {
   padding: 0.8rem 1rem;
@@ -45,6 +63,20 @@ body {
   background: var(--accent);
   color: var(--sidebar-bg);
 }
+
+.tabs button {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
+  /* margin-left: auto; */
+}
+
+/* .tabs button:hover {
+  text-decoration: underline;
+} */
 
 .layout {
   display: flex;
@@ -78,7 +110,8 @@ body {
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: #33cc33;
+  /* color: #33cc33; */
+  color: var(--avatar-color);
   text-align: center;
   margin: 0.5rem 0 1rem;
   line-height: 1.2;
@@ -152,7 +185,7 @@ body {
   margin-bottom: 1.2rem;
 }
 .keyword {
-  color: #33cc33; /* green */
+  color: var(--avatar-color); /* green */
   /* font-weight: bold; */
 }
 
@@ -343,3 +376,31 @@ body {
 }
 
 
+.journal-view { display: none; }
+.journal-view.active { display: block; }
+
+.journal-index { list-style: none; padding: 0; margin-top: 1.5rem; }
+.journal-index li { margin-bottom: 1rem; }
+
+.journal-index button {
+  background: none; border: none;
+  color: var(--accent);
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0;
+}
+.journal-index button:hover { text-decoration: underline; }
+
+.journal-entry-content { display: none; margin-top: 1.5rem; }
+.journal-entry-content.active { display: block; }
+
+.journal-back {
+  background: none;
+  border: none;
+  /* color: white;           make it white */
+  cursor: pointer;
+  padding: 0;
+  font-size: 1.3rem;      /* bigger text */
+  font-weight: bold;      /* stronger presence */
+}
