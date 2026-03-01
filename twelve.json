@@ -3,11 +3,26 @@
   "goals": ["3 papers", "100k NTD", "Japanese N2"],
   "logs": [
     {
+        "date": "2026-03-01",
+        "items": [
+        ]
+    },
+    {
+        "date": "2026-02-28",
+        "items": [
+            { "thing": "Exercise", "g1": 0, "g2": 0, "g3": 0 },
+            { "thing": "Dealing with Exchange Problem", "g1": 0, "g2": 0, "g3": 0 },
+            { "thing": "Having fun with family", "g1": 0, "g2": 0, "g3": 0 }
+        ]
+    },
+    {
         "date": "2026-02-27",
         "items": [
             { "thing": "Working on github page", "g1": 0, "g2": 0, "g3": 0 },
             { "thing": "Reading paper", "g1": 4, "g2": 0, "g3": 0 },
-            { "thing": "Coding", "g1": 18, "g2": 0, "g3": 0 }
+            { "thing": "Coding", "g1": 18, "g2": 0, "g3": 0 },
+            { "thing": "Practice Japanese 30 min", "g1": 0, "g2": 0, "g3": 10 },
+            { "thing": "Reading Book 30 min", "g1": 0, "g2": 10, "g3": 0 }
         ]
     },
     {
