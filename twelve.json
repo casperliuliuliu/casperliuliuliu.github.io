@@ -5,6 +5,8 @@
     {
         "date": "2026-03-01",
         "items": [
+            { "thing": "Coding", "g1": 18, "g2": 0, "g3": 0 },
+            { "thing": "Writing Paper 30 min", "g1": 4, "g2": 0, "g3": 0 }
         ]
     },
     {
