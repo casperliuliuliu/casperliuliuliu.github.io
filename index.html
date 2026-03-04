@@ -10,18 +10,34 @@
 <body>
   <!-- TOP TABS -->
   <nav class="tabs">
+    <div class="tabs-top">
+      <button class="menu-toggle" id="menu-toggle">☰ MENU</button>
+      <button id="theme-toggle">◐</button>
+    </div>
+
+    <div class="tab-links">
+      <a href="#about">About</a>
+      <a href="#post">Posts</a>
+      <a href="#twelve">12 Weeks</a>
+      <a href="#publications">Publications</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <!-- <a href="#award">Award</a> -->
+      <!-- <a href="#journey">Journey</a> -->
+    </div>
+    <!-- <button id="theme-toggle">◐</button> -->
+  </nav>
+  <!-- <nav class="tabs">
     <div class="tab-links">
     <a href="#about">About</a>
-    <a href="#journal">Journals</a>
+    <a href="#post">Posts</a>
     <a href="#twelve">12 Weeks</a>
     <a href="#publications">Publications</a>
     <a href="#projects">Projects</a>
     <a href="#experience">Experience</a>
-
-    <!-- <a href="#award">Award</a> -->
     </div>
     <button id="theme-toggle">◐</button>
-  </nav>
+  </nav> -->
 
   <div class="layout">
     <!-- LEFT COLUMN -->
@@ -51,7 +67,15 @@
     </main>
   </div>
 <script>
-  const allowed = new Set(['about','publications','projects','experience','journal','twelve']);
+  // const btn = document.getElementById("menu-toggle");
+  // const links = document.querySelector(".tab-links");
+  // btn.addEventListener("click", () => links.classList.toggle("active"));
+  document.getElementById("menu-toggle")
+  .addEventListener("click", function () {
+    document.querySelector(".tab-links")
+    .classList.toggle("active");
+  });
+  const allowed = new Set(['about','publications','projects','experience','post','twelve']);
   const sectionEl = document.getElementById('section');
 
   function load(id){
@@ -77,34 +101,34 @@
   window.addEventListener('hashchange', () => load(current()));
   load(current());
 
-  // ✅ Journal click handling (dynamic content)
+  // ✅ post click handling (dynamic content)
   sectionEl.addEventListener('click', (e) => {
-    const openBtn = e.target.closest('.journal-open');
-    const backBtn = e.target.closest('.journal-back');
+    const openBtn = e.target.closest('.post-open');
+    const backBtn = e.target.closest('.post-back');
 
-    // Open entry (load from /journals)
+    // Open entry (load from /posts)
     if (openBtn) {
-      const file = openBtn.dataset.file; // <-- MUST be data-file in sections/journal.html
-      const listView = sectionEl.querySelector('#journal-list');
-      const entryView = sectionEl.querySelector('#journal-entry');
-      const article = sectionEl.querySelector('#journal-article');
+      const file = openBtn.dataset.file; // <-- MUST be data-file in sections/post.html
+      const listView = sectionEl.querySelector('#post-list');
+      const entryView = sectionEl.querySelector('#post-entry');
+      const article = sectionEl.querySelector('#post-article');
 
       if (!listView || !entryView || !article || !file) return;
 
       listView.classList.remove('active');
       entryView.classList.add('active');
 
-      article.innerHTML = `<h3 class="journal-entry-title">Loading...</h3>`;
+      article.innerHTML = `<h3 class="post-entry-title">Loading...</h3>`;
 
-      fetch(`journals/${file}.html`)
+      fetch(`posts/${file}.html`)
         .then(r => r.text())
         .then(html => {
           article.innerHTML = html;
         })
         .catch(() => {
           article.innerHTML =
-            `<h3 class="journal-entry-title">Not found</h3>
-             <p>Could not load journals/${file}.html</p>`;
+            `<h3 class="post-entry-title">Not found</h3>
+             <p>Could not load posts/${file}.html</p>`;
         });
 
       return; // stop here
@@ -112,8 +136,8 @@
 
     // Back to list
     if (backBtn) {
-      const listView = sectionEl.querySelector('#journal-list');
-      const entryView = sectionEl.querySelector('#journal-entry');
+      const listView = sectionEl.querySelector('#post-list');
+      const entryView = sectionEl.querySelector('#post-entry');
       if (!listView || !entryView) return;
 
       entryView.classList.remove('active');

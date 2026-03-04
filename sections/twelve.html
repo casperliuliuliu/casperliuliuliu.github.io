@@ -102,7 +102,107 @@
     }
     .tw-goal-btn:hover { border-color: var(--accent); transform: translateY(-1px); }
     .tw-goal-btn.active { border-color: var(--accent); color: var(--accent); }
+    @media (hover: hover) and (pointer: fine) {
+      .tw-cell:hover { transform: translateY(-1px); border-color: var(--accent); }
+      .tw-goal-btn:hover { border-color: var(--accent); transform: translateY(-1px); }
+    }
+    .tw-cell:active { transform: scale(0.98); }
+    .tw-goal-btn:active { transform: scale(0.98); }
+    #twelve-weeks{
+      --cell: 26px;
+      --gap: 7px;
+      --labelLeft: 4rem;
+      --labelTop: 2.8rem;
+    }
+    /* ===== Mobile fit: shrink everything + single column ===== */
+@media (max-width: 980px) {
 
+  /* stack + reduce gaps */
+  .tw-layout{
+    grid-template-columns: 1fr !important;
+    gap: 0.8rem !important;
+  }
+
+  .tw-header h2{
+    font-size: 1.05rem;
+  }
+  .tw-sub{
+    font-size: 0.9rem;
+  }
+
+  /* controls smaller + wrap nicely */
+  .tw-controls{
+    gap: 0.6rem;
+    margin: 0.7rem 0 0.9rem;
+  }
+  .tw-goal-btn{
+    padding: 0.4rem 0.55rem;
+    border-radius: 9px;
+    font-size: 0.85rem;
+  }
+  .tw-legend-label{
+    font-size: 0.8rem;
+  }
+  .tw-legend .tw-cell{
+    width: 14px;
+    height: 14px;
+  }
+
+  /* calendar: smaller cells + smaller label area */
+  #twelve-weeks{
+    --cell: 16px;
+    --gap: 4px;
+    --labelLeft: 2.6rem;
+    --labelTop: 2.35rem;
+    padding-right: 0.8rem;
+  }
+
+  .tw-grid-wrap{
+    padding: 2.35rem 0.6rem 0.6rem var(--labelLeft);
+    border-radius: 10px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tw-week-labels{
+    font-size: 0.65rem;
+    top: 0.45rem;
+  }
+  .tw-day-labels{
+    font-size: 0.65rem;
+    left: 0.45rem;
+  }
+
+  /* cards smaller */
+  .tw-card{
+    padding: 0.8rem;
+    border-radius: 10px;
+  }
+
+  /* donut smaller */
+  .tw-donut{
+    width: 104px;
+    height: 104px;
+  }
+  .tw-donut-center{
+    width: 66px;
+    height: 66px;
+    font-size: 0.95rem;
+  }
+
+  /* activity items tighter */
+  .tw-act-item{
+    padding: 0.6rem 0.7rem;
+  }
+  .tw-act-detail{
+    font-size: 0.85rem;
+  }
+  .tw-weekbar-top{
+    font-size: 0.85rem;
+  }
+}
+    .tw-grid-wrap{
+      -webkit-overflow-scrolling: touch;
+    }
     .tw-legend { display: flex; align-items: center; gap: 0.35rem; }
     .tw-legend-label { opacity: 0.7; font-size: 0.9rem; }
 
@@ -215,12 +315,7 @@
       font-weight: 800;
     }
 /* ===== Calendar sizing (single source of truth) ===== */
-#twelve-weeks{
-  --cell: 26px;
-  --gap: 7px;
-  --labelLeft: 4rem;
-  --labelTop: 2.8rem;
-}
+/*  */
 
 .tw-grid-wrap{
   position: relative;

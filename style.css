@@ -14,7 +14,8 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-  zoom: 120%;
+  font-size: 16px;  /* or keep default */
+  /* zoom: 120%; */
   /* font-family: sans-serif; */
   font-family: 'Noto Sans SC', sans-serif;
 
@@ -42,20 +43,36 @@ body.light {
 .center-text {
   text-align: center;
 }
-
+.menu-toggle{
+  display:none;
+  font-size:1.6rem;
+  background:none;
+  border:none;
+  color:var(--accent);
+  cursor:pointer;
+}
 /* TOP TABS */
-.tabs {
-  display: flex;
-  align-items: center;
-  padding: 0 10rem;
-  background: var(--sidebar-bg);
-  border-bottom: 1px solid var(--border);
+.tabs{
+  display:flex;
+  flex-direction:column;
+  background:var(--sidebar-bg);
+  border-bottom:1px solid var(--border);
+}
+
+.tabs-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0.8rem 1rem;
 }
 .tab-links {
   margin: 0 auto;   /* center the links */
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 .tabs a {
+  white-space: nowrap;
   padding: 0.8rem 1rem;
   text-decoration: none;
   font-family: 'Press Start 2P', cursive;
@@ -306,17 +323,136 @@ body.light {
   margin-bottom: 0.3rem;
   line-height: 1.4;
 }
-@media (max-width: 600px) {
+.tabs{
+  display:flex;
+  flex-direction: column;
+  background: var(--sidebar-bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.tabs-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding: 0.8rem 1rem;
+}
+
+.menu-toggle{
+  display:none; /* shown only on mobile */
+  font-size: 1rem;
+  background:none;
+  border:none;
+  color: var(--accent);
+  cursor:pointer;
+  font-family: 'Press Start 2P', cursive;
+}
+
+#theme-toggle{
+  background:none;
+  border:none;
+  color: var(--accent);
+  cursor:pointer;
+}
+
+/* dropdown links container (mobile default hidden, desktop overridden) */
+.tab-links{
+  display:none;
+  flex-direction: column;
+  width:100%;
+}
+
+/* ===== Desktop: show tabs row, hide menu button ===== */
+@media (min-width: 981px){
+
+  .tabs{
+    flex-direction: row;
+    align-items: center;
+    padding: 0 clamp(1rem, 6vw, 10rem);
+  }
+
+  .tabs-top{
+    display: contents;   /* makes MENU + theme behave like direct children of .tabs */
+  }
+
+  .menu-toggle{
+    display:none;
+  }
+
+  .tab-links{
+    display:flex;
+    flex-direction: row;
+    margin: 0 auto;
+    width: auto;
+    justify-content: center;
+    gap: 0;
+  }
+
+  #theme-toggle{
+    margin-left: auto;
+  }
+
+  .tab-links a{
+    white-space: nowrap;
+    padding: 0.8rem 1rem;
+    text-decoration: none;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.75rem;
+    color: var(--accent);
+  }
+}
+@media (max-width: 980px){
+
+  .menu-toggle{
+    display:block;
+  }
+  #theme-toggle{
+    margin-left: auto; /* push it to the far right */
+  }
+  .tab-links.active{
+    display:flex;
+  }
+
+  .tab-links a{
+    padding: 0.9rem 1rem;
+    border-top: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--accent);
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+  }
+}
+@media (max-width: 980px) {
+  .menu-toggle{
+    display:block;
+  }
+
+  .tab-links.active{
+    display:flex;
+  }
+
+  .tab-links a{
+    padding: 0.9rem 1rem;
+    border-top: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--accent);
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+  }
+
+
+  .tab-links.active{
+    display:flex;
+  }
+  /* .tabs{ padding: 0.5rem 0.75rem; } */
+  .tabs a{ font-size: 0.6rem; padding: 0.6rem 0.6rem; }
   .layout {
     flex-direction: column;  /* stack sidebar above content */
   }
-  .sidebar {
-    width: 100%;
-    padding: 1rem;        /* uniform padding */
-  }
-
   /* Stack avatar + skills in a row filling 100% */
   .sidebar {
+    padding: 1rem;        /* uniform padding */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -331,7 +467,7 @@ body.light {
     border-radius: 50%;     
     margin: 0 1rem 0 0;
     flex-shrink: 0;
-    margin-bottom: 1 rem;
+    margin-bottom: 1rem;
     
   }
 
@@ -375,7 +511,13 @@ body.light {
   .sidebar {
     overflow-y: visible;     /* let them grow, not scroll internally */
   }
-
+  .menu-toggle,
+  #theme-toggle,
+  .tab-links a {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.65rem;   /* pixel fonts must be small */
+    letter-spacing: 1px;
+  }
 }
 
 .tw-goal-btn {
