@@ -7,25 +7,16 @@
       <p class="post-subtitle">Notes, reflections, and progress logs.</p>
     </div>
 
-    <ul class="post-index">
       <li class="post-item">
-        <button class="post-open" data-file="2026-02-24-building-post">
-          <span class="post-title">Building post</span>
-          <span class="post-meta">2026-02-24</span>
+        <button class="post-open" data-file="Can_airplane_go_faster">
+          <span class="post-title">Can Airplanes Go Faster?</span>
+          <span class="post-meta">2026-03-05</span>
         </button>
       </li>
-
       <li class="post-item">
-        <button class="post-open" data-file="2026-02-21-cvpr-reflection">
-          <span class="post-title">CVPR Reflection</span>
-          <span class="post-meta">2026-02-21</span>
-        </button>
-      </li>
-
-      <li class="post-item">
-        <button class="post-open" data-file="uncontacted-tribe">
+        <button class="post-open" data-file="uncontacted_tribe">
           <span class="post-title">Uncontacted Tribe</span>
-          <span class="post-meta">—</span>
+          <span class="post-meta">2026-02-03</span>
         </button>
       </li>
     </ul>
@@ -161,10 +152,54 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-    .post-article p {
+    /* .post-article p {
       line-height: 1.7;
       margin: 0.9rem 0;
-      white-space: pre-wrap; /* keeps your paragraph formatting */
-    }
+      white-space: pre-wrap; 
+    } */
+    /* Article typography improvements */
+
+/* .post-article {
+  max-width: 980px;
+} */
+.post-article h4,
+.post-article p {
+  margin-left: 0;
+  padding-left: 0;
+}
+.post-article h4 {
+  margin: 1.2rem 0 0.4rem 0;   /* top right bottom left */
+  padding: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.3px;
+}
+
+.post-article p {
+  line-height: 1.75;
+  margin: 0.55rem 0;
+  font-size: 0.98rem;
+  white-space: pre-line;
+}
+
+.post-entry-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.post-published {
+  margin: 0.4rem 0 1.4rem;
+  opacity: 0.65;
+  font-size: 0.9rem;
+}
+
+/* subtle reading spacing */
+
+.post-article br {
+  display: block;
+  margin: 0.6rem 0;
+}
+
   </style>
 </section>
