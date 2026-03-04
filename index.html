@@ -67,10 +67,17 @@
   // const btn = document.getElementById("menu-toggle");
   // const links = document.querySelector(".tab-links");
   // btn.addEventListener("click", () => links.classList.toggle("active"));
+  const tabLinks = document.querySelector(".tab-links");
+
   document.getElementById("menu-toggle")
   .addEventListener("click", function () {
-    document.querySelector(".tab-links")
-    .classList.toggle("active");
+    tabLinks.classList.toggle("active");
+  });
+
+  document.querySelectorAll(".tab-links a").forEach(link => {
+    link.addEventListener("click", () => {
+      tabLinks.classList.remove("active");
+    });
   });
   const allowed = new Set(['about','publications','projects','experience','post','twelve']);
   const sectionEl = document.getElementById('section');
