@@ -3,6 +3,47 @@
   "goals": ["3 papers", "100k NTD", "Japanese N2"],
   "logs": [
     {
+        "date": "2026-03-09",
+        "items": [
+            { "thing": "Japanese seminar preparation", "g1": 0, "g2": 0, "g3": 0 },
+            { "thing": "Emailing U of T professor", "g1": 0, "g2": 0, "g3": 0 }
+        ]
+    },
+    {
+        "date": "2026-03-08",
+        "items": [
+            { "thing": "Having fun with my family", "g1": 0, "g2": 0, "g3": 0 },
+            { "thing": "Badminton", "g1": 0, "g2": 0, "g3": 0 },
+            { "thing": "Applying for U of T scholarship", "g1": 0, "g2": 0, "g3": 0 },
+            { "thing": "Emailing U of T professor", "g1": 0, "g2": 0, "g3": 0 },
+            { "thing": "Designing Homework", "g1": 0, "g2": 0, "g3": 0 }
+        ]
+    },
+    {
+        "date": "2026-03-07",
+        "items": [
+            { "thing": "Having fun with my family", "g1": 0, "g2": 0, "g3": 0 },
+            { "thing": "Emailing U of T professor", "g1": 0, "g2": 0, "g3": 0 },
+            { "thing": "GYM", "g1": 0, "g2": 0, "g3": 0 },
+            { "thing": "Reading book", "g1": 0, "g2": 0, "g3": 2 }
+        ]
+    },
+    {
+        "date": "2026-03-06",
+        "items": [
+            { "thing": "Reading paper 1/5", "g1": 4, "g2": 0, "g3": 0 },
+            { "thing": "Emailing U of T professor", "g1": 0, "g2": 0, "g3": 0 }
+        ]
+    },
+    {
+        "date": "2026-03-05",
+        "items": [
+            { "thing": "Working on camera ready paper", "g1": 10, "g2": 0, "g3": 0 },
+            { "thing": "Updating my CV", "g1": 0, "g2": 0, "g3": 0 },
+            { "thing": "Emailing U of T professor", "g1": 0, "g2": 0, "g3": 0 }
+        ]
+    },
+    {
         "date": "2026-03-04",
         "items": [
             { "thing": "Working on Project", "g1": 6, "g2": 0, "g3": 0 }
