@@ -12,6 +12,7 @@
     {
         "date": "2026-03-08",
         "items": [
+            { "thing": "Working on research project", "g1": 6, "g2": 0, "g3": 0 },
             { "thing": "Having fun with my family", "g1": 0, "g2": 0, "g3": 0 },
             { "thing": "Badminton", "g1": 0, "g2": 0, "g3": 0 },
             { "thing": "Applying for U of T scholarship", "g1": 0, "g2": 0, "g3": 0 },
