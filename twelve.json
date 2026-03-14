@@ -3,6 +3,16 @@
   "goals": ["3 papers", "100k NTD", "Japanese N2"],
   "logs": [
     {
+        "date": "2026-03-14",
+        "items": [
+            { "thing": "Do the laundry", "g1": 0, "g2": 0, "g3": 0 },
+            { "thing": "Try new restaurant", "g1": 0, "g2": 0, "g3": 0 },
+            { "thing": "Play Smash Bro", "g1": 0, "g2": 0, "g3": 0 },
+            { "thing": "Back to posting", "g1": 0, "g2": 0, "g3": 0 },
+            { "thing": "Family dinner", "g1": 0, "g2": 0, "g3": 0 }
+        ]
+    },
+    {
         "date": "2026-03-09",
         "items": [
             { "thing": "Japanese seminar preparation", "g1": 0, "g2": 0, "g3": 0 },
