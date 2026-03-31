@@ -3,6 +3,14 @@
   "goals": ["3 papers", "100k NTD", "Japanese N2"],
   "logs": [
     {
+        "date": "2026-03-30",
+        "items": [
+            { "thing": "Coding", "g1": 14, "g2": 0, "g3": 0 },
+            { "thing": "Reading book", "g1": 0, "g2": 0, "g3": 32 },
+            { "thing": "Podcast", "g1": 0, "g2": 0, "g3": 20 }
+        ]
+    },
+    {
         "date": "2026-03-29",
         "items": [
             { "thing": "Coding", "g1": 8, "g2": 0, "g3": 0 }
