@@ -518,3 +518,46 @@ body.light {
 .tw-goal-btn.active {
   font-weight: 600;
 }
+
+.contact-links {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  align-items: stretch;
+  width: 100%;
+}
+
+.contact-links a {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.55rem;
+  line-height: 1.4;
+  color: var(--accent);
+  text-decoration: none;
+
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+
+  padding: 0.55rem 0.65rem;
+  border: 1px solid var(--border);
+  background: var(--content-bg);
+  box-shadow: 3px 3px 0 var(--border);
+
+  transition: transform 0.1s ease, background 0.1s ease, color 0.1s ease;
+}
+
+.contact-links a:hover {
+  background: var(--accent);
+  color: var(--sidebar-bg);
+  text-decoration: none;
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--border);
+}
+
+.contact-links i {
+  width: 16px;
+  min-width: 16px;
+  text-align: center;
+  font-size: 0.75rem;
+}
